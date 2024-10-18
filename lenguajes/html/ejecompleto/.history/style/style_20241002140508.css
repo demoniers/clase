@@ -1,0 +1,18 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        .container {
+            display: flex;
+            float: right;
+        }
+        .content {
+            overflow: hidden;
+            clear: both;
+
+        }
+
+ 
+        

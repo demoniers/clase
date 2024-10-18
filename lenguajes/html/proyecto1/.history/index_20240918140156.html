@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" dir="auto" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h1 {
+        border: 1px dashed;
+        border-width: 2.5px;
+      }
+      #encabezado1 {
+        border-radius: 15%;
+        text-align: center;
+      }
+      .encabezado {
+        border-style: ridge;
+        text-align: right;
+        border: 0.5px dotted;
+        padding: 1px;
+        margin: -5px;
+    }
+    </style>
+  </head>
+  <body onload="alert('La pagina esta lista')">
+    <h1 id="encabezado1" onclick="alert('holamundo')">EJEMPLO</h1>
+    <h1 class="encabezado" id="prb" onclick="encabezado = document.getElementsByClassName('encabezado'); encabezado.id('encabeado1')">clase</h1>
+    <h1 class="encabezado">clase</h1>
+    <p>Esto es un documento HTML</p>
+  </body>
+</html>

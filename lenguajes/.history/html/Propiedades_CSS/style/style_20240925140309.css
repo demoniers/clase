@@ -1,0 +1,30 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+        }
+
+        h2 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        .encabezado {
+            color: blue;
+            font-size: 50px;
+        }
+
+
+        .clase1 {
+            text-align: right;
+            border: 3px solid red;
+            background-color: #f68f8f;
+        }
+
+        /* Estilo que aplica al elemento con el id spanId */
+        #spanId {
+            font-size: smaller;
+            color: chartreuse;
+        }
+        .fondo {
+            background-color: #00000057;
+        }

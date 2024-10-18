@@ -1,0 +1,28 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: rgba(0, 0, 0, 0.436);
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        .content {
+            width: 40%;
+            border: 5px solid #7e7eef;
+            border-radius: 25%;
+            border-style: groove;
+            padding: 2%;
+        }
+        #historia {
+            float: inline-start;
+        }
+        #paraempezar {
+            float: right;
+        }
+        #imgjava {
+            float: inline-start;
+            width: auto;
+            height: auto;
+        }
+
+ 
+        

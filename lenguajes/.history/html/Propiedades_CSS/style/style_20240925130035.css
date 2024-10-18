@@ -1,0 +1,24 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+        }
+
+        /*Estilo que aplica a cualquier elemento h1 que se encuentre en la página */
+        h1, h2 {
+            color: blue;
+            font-size: 500px;
+            text-align: center;
+        }
+
+        /* Estilo que aplica a cualquier elemento que tenga su atributo class con el valor clase1*/
+        .clase1 {
+            text-align: right;
+            border: 3px solid red;
+            background-color: #f68f8f;
+        }
+
+        /* Estilo que aplica al elemento con el id spanId */
+        #spanId {
+            font-size: smaller;
+            color: chartreuse;
+        }
