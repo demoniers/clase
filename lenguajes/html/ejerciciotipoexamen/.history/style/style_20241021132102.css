@@ -1,0 +1,22 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        #cabecera {
+            border: 1px solid white;
+            width: 50%;
+            float: left;
+            padding-left: 25%;
+        }
+        header {
+            text-align: center;
+        }
+        .mitad {
+            width: 49%;
+            float: left;
+        }
+
+ 
+        
