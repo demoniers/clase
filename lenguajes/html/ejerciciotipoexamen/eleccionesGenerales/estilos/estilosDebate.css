@@ -1,0 +1,52 @@
+body {
+    background-color: lightgray;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+h1, h2 {
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#intro {
+    border:gray 5px double;
+    text-align: center;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.psoe {
+    color: red;
+}
+
+.pp {
+    color: dodgerblue;
+}
+
+.ciudadanos {
+    color: orange;
+}
+
+.podemos {
+    color: purple;
+}
+
+.vox {
+    color: green;
+}
+
+.alinearDcha {
+    text-align: right;
+    background-color: hotpink;
+}
+#bloques {
+    float: left;
+    width: 50%;
+}
+#tiempos {
+    float: right;
+    width: 50%;
+}
+dd {
+    color: black;
+}

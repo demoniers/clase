@@ -1,0 +1,68 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ac018c;
+            color: white;
+            margin-left: 5%;
+            margin-right: 5%;
+            padding-left: 2%;
+            padding-right: 2%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #cabecera {
+            border: 10px solid white;
+            border-style: double;
+            width: 50%;
+            float: left;
+            margin-left: 25%;
+            clear: left;
+        }
+        .contenido {
+            clear:both;
+        }
+        header {
+            text-align: center;
+        }
+        .mitad {
+            width: 49%;
+            float: left;
+            border: 1px solid white;
+            border-radius: 15%;
+        }
+        .titulo {
+            font-style: oblique;
+            text-align: center;
+            text-decoration: double;
+            font-weight: bold;
+        }
+        .negrita {
+            font-weight: bold;
+            font-size: 15pt;
+        }
+        .c1 {
+            color: yellow;
+            text-transform: uppercase;
+            font-style: oblique;
+        }
+        .c2 {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .c3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+        }
+        .image-box {
+
+        }
+        #img {
+            width: 80%;
+            height: auto;
+            float: left;
+            margin-left: 10%;
+        }
+        footer {
+            
+            clear: both;
+        }
+
+ 
+        

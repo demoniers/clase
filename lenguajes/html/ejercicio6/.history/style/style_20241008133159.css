@@ -1,0 +1,32 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        .encabezado {
+            width: 100%;
+            float: left;
+            display: contents;
+        }/*
+        #contenidos {
+            display: flex;
+            align-content: center;
+        }*/
+
+        #container {
+            width: 80%;
+            margin: auto;
+        }
+        .content {
+            float: left;
+            width: 50%;
+        }
+        #content1, #content2 {
+            width: 30%;
+
+        }
+
+
+ 
+        

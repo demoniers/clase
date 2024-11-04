@@ -1,18 +1,20 @@
         /* Estilo que aplica al cuerpo de la página */
         body {
-            background-color: #ae58bb;
-            background-image: url(../img/fondo.jpg);
+            background-color: #ac018c;
             color: white;
-            margin-left: 5%;
-            margin-right: 5%;
+            margin-left: 15%;
+            margin-right: 15%;
             padding-left: 2%;
             padding-right: 2%;
         }
         #cabecera {
-            border: 1px solid white;
+            border: 10px solid white;
+            border-style: double;
+            padding: 1%;
+            margin-left: 25%;
+            margin-right: 25%;
             width: 50%;
             float: left;
-            margin-left: 25%;
             clear: left;
         }
         .contenido {
@@ -22,7 +24,7 @@
             text-align: center;
         }
         .mitad {
-            width: 49%;
+            width: 50%;
             float: left;
         }
         .titulo {
@@ -35,6 +37,37 @@
             font-weight: bold;
             font-size: 15pt;
         }
-
- 
+        dt {
+            padding: 1%;
+        }
+        .c1 {
+            color: yellow;
+            text-transform: uppercase;
+            font-style: oblique;
+        }
+        .c2 {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .c3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+        }
+        #img {
+            height: auto;
+            float: left;
+            animation-name: imagen;
+            animation-duration: 2.5s;
+            animation-iteration-count: infinite;
+        }
         
+        @keyframes imagen {
+            from {
+                border-radius: 5%;
+            }
+            to {
+                border-radius: 100%;
+            }
+        }
+        footer {
+            clear: both;
+        }
