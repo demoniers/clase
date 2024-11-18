@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../img/">
+    <title>Hojas de Estilo</title>
+    <link rel="icon" type="image/x-icon" href="../img/icon.ico">
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="author" content="Diego" />
+    <meta name="description" content="Esto es una web" />
+    <!---meta http-equiv="refresh" content="60; URL=http://www.google.com/" /> -->
+  </head>
+
+  <body>
+    <div id="container">
+      <fieldset>
+        <legend>Familias y ..... </legend>
+        <h1>Paso 1</h1>
+        <fieldset class="75">
+          <legend>Datos de cliente</legend>
+          <input type="text" name="user" id="user" placeholder="Usuario">
+          <input type="password" name="password" id="password" placeholder="password">
+          <p>(minimo 6 caracteres.)</p>
+        </fieldset>
+        <fieldset class="25">
+          <legend>tipo de cliente</legend>
+          <input type="radio" name="tipo" id="tipo">tipo1
+          <input type="radio" name="tipo" id="tipo">tipo2
+          <input type="radio" name="tipo" id="tipo">tipo3
+        </fieldset>
+      </fieldset>
+    </div>
+    <p id="fh"></p>
+  </body>
+  <script>
+    fecha = document.getElementById("fh");
+    f = new Date();
+    fecha.innerHTML = f;
+</script>
+</html>
