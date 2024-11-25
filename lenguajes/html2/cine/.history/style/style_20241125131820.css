@@ -1,0 +1,26 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+
+        .titulo {
+            border: 2px solid white;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        .container {
+            border: 1px dashed white;
+            clear: both;
+        }
+        .tabla {
+            float: left;
+            width: 45%;
+        }
+        .info {
+            float: left;
+            width: 45%;
+        }

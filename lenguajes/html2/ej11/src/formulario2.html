@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../img/">
+    <title>Hojas de Estilo</title>
+    <link rel="icon" type="image/x-icon" href="../img/icon.ico">
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="author" content="Diego" />
+    <meta name="description" content="Esto es una web" />
+    <!---meta http-equiv="refresh" content="60; URL=http://www.google.com/" /> -->
+  </head>
+
+  <body>
+    <div id="container">
+      <fieldset>
+        <legend>Pago</legend>
+        <form action="">
+        <input type="date" name="fecha" id="fecha" min="01-01-2025" max="21-02-2025"><br>
+        <input type="text" name="city" id="city" list="city">
+        <datalist id="city">
+          <option value="cityX">ciudad X</option>
+          <option value="cityX">ciudad X</option>
+          <option value="cityX">ciudad X</option>
+          <option value="cityX">ciudad X</option>
+          <option value="cityX">ciudad X</option>
+        </datalist>
+        <input type="submit" value="Enviar">
+        <input type="reset" value="reset">
+        </form>
+      </fieldset>
+    </div>
+    <p id="fh"></p>
+  </body>
+  <script>
+    fecha = document.getElementById("fh");
+    f = new Date();
+    fecha.innerHTML = f;
+</script>
+</html>

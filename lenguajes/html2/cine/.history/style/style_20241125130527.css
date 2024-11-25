@@ -1,0 +1,15 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        .titulo {
+            border: 3px solid white;
+        }
+        table {
+            border-collapse: collapse;
+        }
+
+ 
+        
