@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Librería Corsaria</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Página para realizar pedidos de libros especializados" />
+    <meta name="author" content="Sonia Gutierrez" />
+    <meta name="keywords" content="LIBROS, BOOKS, LITERATURA" />
+    <link rel="stylesheet" href="../css/ejercicio7.css">
+</head>
+
+<body>
+    <h1>LIBRERÍA CORSARIA</h1>
+    <div>
+        <form action="#" method="post">
+            <fieldset>
+                <legend> Formulario de pedido</legend>
+                <div id="paso1">
+                    <h2>Paso 1. Identificación</h2>
+                    <div id="datosCliente">
+                        <fieldset>
+                            <legend> Datos del cliente</legend>
+                            <label for="email">Correo electrónico</label>
+                            <input type="text" id="email">
+                            <br>
+                            <label for="pass"> Contraseña</label>
+                            <input type="password" id="pass">
+                            <br>(Longitud mínima 6 caracteres)
+                        </fieldset>
+                    </div>
+                    <div id="tipoCliente">
+                        <fieldset>
+                            <legend>Tipo de cliente</legend><br>
+                            <input type="radio" id="particular" name="tipo" checked>
+                            <label for="particular">Particular</label>
+                            <br>
+                            <input type="radio" id="asociacion" name="tipo">
+                            <label for="asociacion">Asociación</label>
+                            <br>
+                            <input type="radio" id="empresa" name="tipo">
+                            <label for="empresa">Empresa</label>
+                        </fieldset>
+                    </div>
+                </div>
+                <div id="paso2">
+                    <h2>Paso 2. Pedido</h2>
+                    <div id="datosProducto">
+                        <fieldset>
+                            <legend>Datos del producto</legend>
+                            <label for="producto">Producto</label> <br>
+                            <select id="producto" name="producto" multiple size="8">
+                                    <optgroup label="Libros">
+                                        <option value="AR01" selected>Recetas</option>
+                                        <option value="AR02">Historia</option>
+                                        <option value="AR03">Técnicos</option>
+                                    </optgroup>
+                                    <optgroup label="Calendarios">
+                                        <option value="Ex01" selected>Escolares</option>
+                                        <option value="Ex02">Anuales</option>
+                                    </optgroup>
+                                    <optgroup label="Material Escolar">
+                                        <option value="mat01" selected>Pinturas</option>
+                                        <option value="mat02">Rotuladores</option>
+                                        <option value="mat03">Cuadernos</option>
+                                        <option value="mat04">Gomas</option>
+                                    </optgroup>
+                                </select>
+                        </fieldset>
+                    </div>
+                    <div id="infoInteres">
+                        <fieldset>
+                            <legend>Información de interés</legend>
+                            <label for="comentarios"> Comentarios </label><br>
+                            <textarea rows="6" cols="60" id="comentarios" placeholder="Escriba aquí su comentario..."></textarea>
+                            <br>
+                            <input type="checkbox" id="publi" value="si" checked>
+                            <label for="publi">Acepto recibir información publicitaria</label>
+                        </fieldset>
+                    </div>
+                </div>
+                <div id="paso3">
+                    <h2>Paso 3. Pago</h2>
+                    <div id="datosPedido">
+                        <div id="datosEnvio">
+                            <fieldset>
+                                <legend>Datos del envío</legend>
+                                <br>
+                                <label for="dire">Dirección</label>
+                                <input type="text" id="dire" size="40">
+                                <br>
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" id="ciudad" size="20">
+                                <label for="codigo">Código Postal</label>
+                                <input type="text" id="codigo" size="5">
+                            </fieldset>
+                        </div>
+                        <div id="datosBancarios">
+                            <fieldset>
+                                <legend>Datos Bancarios</legend>
+                                <label for="entidad">Nombre de la entidad</label>
+                                <input type="text" id="entidad" size="20">
+                                <br>
+                                <label for="nCuenta">Nº de cuenta</label>
+                                <input type="text" id="nCuenta" size="40">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="botones">
+                    <button type="submit">COMPRAR</button>
+                    <button type="reset">LIMPIAR FORMULARIO</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ejercicio 11 </title>
+    <link rel="stylesheet" href="../css/ejercicio11.css">
+</head>
+<body>
+    <form action="#" method="post">
+        <fieldset>
+            <legend>Datos Personales</legend>
+            <input type="date" name="fechaComp" id="fechaComp" min="2024-1-7" max="2024-2-23" autofocus placeholder="fecha de compra" required>
+            <input type="text" name="ciudad" id="ciudad" list="listaCiudad" pattern="[A-Z][a-z]+" placeholder="Ciudad">
+            <input type="text" name="tlfno" id="tlfno" pattern="([6789]|([34]4)\d)\d{8}" placeholder="teléfono">
+            <input type="email" name="correoE" id="correoE" placeholder="Correo Electrónico" required>
+        </fieldset>
+        <fieldset>
+            <legend>Datos Bancarios</legend>
+            <input type="text" name="numTarjeta" id="numTarjeta" placeholder="Número de tarjeta" pattern="(\d{4}\s){2}\d{4}(\s\d{4})+"  required>
+            <input type="number" name="cvv" id="cvv" placeholder="número de 3 dígitos" pattern="[1-9]{3}"  required> 
+            <input type="month" name="fechaCad" id="fechaCad"  required>
+        </fieldset>
+        <datalist>
+            <option>Salamanca</option>
+            <option>Madrid</option>
+            <option>Bilbao</option>
+            <option>Santander</option>
+            <option>Málaga</option>
+        </datalist>
+    </form>
+</body>
+</html>

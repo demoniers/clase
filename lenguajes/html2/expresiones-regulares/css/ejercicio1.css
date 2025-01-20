@@ -1,0 +1,15 @@
+table {
+    border: 2px double darkblue;
+    margin: 50px auto;
+}
+
+th {
+    text-align: center;
+    color: blue;
+    background-color: yellow;
+}
+
+td {
+    color: green;
+    text-align: right;
+}

@@ -17,30 +17,40 @@
     <div id="container">
       <div class="tabla">
         <h1>Cartelera</h1>
-        <table>
-          <colgroup span="1"></colgroup>
-          <colgroup span="1" class="titulo"></colgroup>
-          <colgroup span="1"></colgroup>
-          <colgroup span="1" class="titulo"></colgroup>
-          <tr>
-            <td><img src="../img/abominable.jpg" alt=""></td>
-            <td>Abominable</td>
-            <td><img src="../img/buenosPrincipios.jpg" alt=""></td>
-            <td>Buenas Practicas</td>
-          </tr>
-          <tr>
-            <td><img src="../img/estafadoras.jpg" alt=""></td>
-            <td>Estafadoras</td>
-            <td><img src="../img/familiaAdams.jpg" alt=""></td>
-            <td>Familia Adams</td>
-          </tr>
-          <tr>
-            <td><img src="../img/joker.jpg" alt=""></td>
-            <td>Joker</td>
-            <td><img src="../img/mientrasDure.jpg" alt=""></td>
-            <td>mientras Dure</td>
-          </tr>
-        </table>
+        <form action="">
+          <table>
+            <colgroup span="1"></colgroup>
+            <colgroup span="1" class="titulo"></colgroup>
+            <colgroup span="1"></colgroup>
+            <colgroup span="1" class="titulo"></colgroup>
+            <tr>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/abominable.jpg" alt=""></td>
+              <td>Abominable</td>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/buenosPrincipios.jpg" alt=""></td>
+              <td>Buenas Practicas</td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/estafadoras.jpg" alt=""></td>
+              <td>Estafadoras</td>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/familiaAdams.jpg" alt=""></td>
+              <td>Familia Adams</td>
+            </tr>
+            <tr>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/joker.jpg" alt=""></td>
+              <td>Joker</td>
+              <td><input type="radio" name="peli" id="peli" class="pelis"><img src="../img/mientrasDure.jpg" alt=""></td>
+              <td>mientras Dure</td>
+            </tr>
+          </table>
+          <fieldset>
+            <legend>Datos Personales</legend>
+            <label for="Usuario">Usuario</label>
+            <input type="text" name="user" id="user">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email">
+            <input type="submit" value="Reservar">
+          </fieldset>
+        </form>
       </div>
       <div class="info">
         <p>Titulo</p>

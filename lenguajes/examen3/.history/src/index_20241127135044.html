@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>¡Festivos Fin de Año!</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="author" content="Diego" />
+    <meta name="description" content="¡Festivos Fin de Año!" />
+    <meta name="Date" content="06/11/2024"/>
+    <meta name="keywords" content="Festivo, Fiesta"/>
+    <meta charset="ISO 8859-1">
+    <meta lang="ES, FR, IT">
+  </head>
+
+  <body>
+    <div id="container">
+      <h1 class="center">FRUTAS DE TEMPORADA</h1>
+      <table>
+        <tr>
+          <th rowspan="2">Frutas</th>
+          <th colspan="3">Otoño</th>
+          <th colspan="3">Invierno</th>
+          <th colspan="3">Primavera</th>
+          <th colspan="3">Verano</th>
+        </tr>
+        <tr>
+          <td>Enero</td>
+          <td>Febrero</td>
+          <td>Marzo</td>
+          <td>Abril</td>
+          <td>Mayo</td>
+          <td>Junio</td>
+          <td>Julio </td>
+          <td>Agosto</td>
+          <td>Septiembre</td>
+          <td>Octubre</td>
+          <td>Noviembre</td>
+          <td>Diciembre</td>
+        </tr>
+        <tr>
+          <th>Manzana</th>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td colspan="5">X</td>
+        </tr>
+        <tr>
+          <th>Pera</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td colspan="5">X</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <th>Naranja</th>
+          <td></td>
+          <td colspan="3">X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td> </td>
+          <td colspan="2">X</td>
+        </tr>
+        <tr>
+          <th>Cereza</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="3">X</td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Kaki</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td colspan="3">X</td>
+        </tr>
+        <tr>
+          <th>Fresas</th>
+          <td></td>
+          <td colspan="4">X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Sandia</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="3">X</td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Granada</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+          <td colspan="3">X</td>
+          <td></td>
+        </tr>
+      </table>
+      <p>Si desea alguna fruta distinta rellene este formulario.</p>
+      <form action="paginaMensaje.html" method="GET">
+        <fieldset class="datospersonales">
+          <legend>Datos Personales</legend>
+          <label for="nombre">nombre: </label>
+          <input type="text" name="nombre" id="nombre" required><br>
+          <label for="phone">Telefono: </label>
+          <input type="number" name="phone" id="phone" max="999999999999" min="100000000"><br>
+          <label for="email">email: </label>
+          <input type="email" name="email" id="email" required><br>
+          <label for="preference">Preferencia de contacto : </label>
+          <select>
+            <option value="Llamar">Llamar por telefono</option>
+            <option value="Correo" selected>Enviar email</option>
+          </select>
+        </fieldset> 
+        <fieldset class="datosconsulta">
+          <legend>Datos de Consulta</legend>
+          <label for="nombre">Nombre Fruta: </label>
+          <input type="text" name="nombre" id="nombre"><br>
+          <label for="variedad">Variedad: </label>
+          <input type="text" name="variedad" id="variedad"><br><br>
+          <input type="submit" value="Enviar">
+          <input type="reset" value="Limpiar">
+        </fieldset>
+      </form>
+      <iframe class="web" src="https://soydetemporada.es/" frameborder="4" height="2000"></iframe>
+    </div>
+  </body>
+</html>

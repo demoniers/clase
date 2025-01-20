@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ejercicio 9 </title>
+    <link rel="stylesheet" href="../css/ejercicio9.css">
+</head>
+<body>
+    <h1> ALTA DE INMUEBLE </h1>
+    <form action="./exito.html" method="post">
+        <select name="tipoInmueble" id="tipoInmueble">
+            <option value="" hidden> Tipo de inmueble </option>
+            <option value="casa">Casa Individual</option>
+            <option value="piso">Piso</option>
+            <option value="adosado">Chalet Adosado</option>
+        </select>
+        <input type="text" name="calle" id="calle" placeholder="calle o vía" required>
+        <input type="number" name="numero" id="numero" min="1" max="250" placeholder="Número" required>
+        <input type="text" name="piso" id="piso" placeholder="Piso y Puerta">
+        <input type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
+        <input type="number" name="telf" id="telf" placeholder="Núm. teléfono" min="600000000" max="699999999">
+        <textarea name="descripcion" id="descripcion" cols="30" rows="10" maxlength="5000" placeholder="Descripción del inmueble"></textarea>
+        <input type="url" name="dirWeb" id="dirWeb" placeholder="dirección web">
+        <div id="divBotones">
+            <button type="submit">Registrar inmueble</button>
+            <button type="reset">Limpiar formulario </button>
+        </div>
+    </form>
+</body>
+</html>

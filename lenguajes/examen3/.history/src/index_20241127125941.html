@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>¡Festivos Fin de Año!</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="author" content="Diego" />
+    <meta name="description" content="¡Festivos Fin de Año!" />
+    <meta name="Date" content="06/11/2024"/>
+    <meta name="keywords" content="Festivo, Fiesta"/>
+    <meta charset="ISO 8859-1">
+    <meta lang="ES, FR, IT">
+  </head>
+
+  <body>
+    <div id="container">
+      <table>
+        <tr>
+          <td rowspan="2">Frutas</td>
+          <td>Otoño</td>
+          <td>Primavera</td>
+          <td>Verano</td>
+        </tr>
+        <tr>
+          <td colspan="2">Frutas</td>
+          <td>Otoño</td>
+          <td>Primavera</td>
+          <td>Verano</td>
+        </tr>
+      </table>
+      <p>Si desea alguna fruta distinta rellene este formulario.</p>
+      <form action="paginaMensaje.html" method="GET">
+        <fieldset>
+          <legend>Datos Personales</legend>
+          <label for="nombre">nombre: </label>
+          <input type="text" name="nombre" id="nombre" required><br>
+          <label for="phone">Telefono: </label>
+          <input type="tel" name="phone" id="phone" max="12" min="9"><br>
+          <label for="email">email: </label>
+          <input type="email" name="email" id="email" required><br>
+          <label for="preference">Preferencia de contacto : </label>
+          <select>
+            <option value="Llamar">Llamar por telefono</option>
+            <option value="Correo" selected>Enviar email</option>
+          </select>
+        </fieldset> 
+        <fieldset>
+          <legend>Datos de Consulta</legend>
+          <label for="nombre">Nombre Fruta: </label>
+          <input type="text" name="nombre" id="nombre"><br>
+          <label for="variedad">Variedad: </label>
+          <input type="text" name="variedad" id="variedad"><br>
+          <input type="submit" value="Enviar">
+          <input type="reset" value="Limpiar">
+        </fieldset>
+      </form>
+      <iframe src="https://soydetemporada.es/" frameborder="4"></iframe>
+    </div>
+  </body>
+</html>

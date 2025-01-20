@@ -1,0 +1,39 @@
+#paso1 {
+    overflow: hidden;
+}
+#datosCliente {
+    float: left;
+    width: 55%;
+}
+#tipoCliente {
+    float: right;
+    width: 40%;
+}
+
+#paso2 {
+    overflow: hidden;
+}
+#datosProducto {
+    float: left;
+    width: 40%;
+}
+#infoInteres {
+    float: right;
+    width: 59%;
+}
+
+#datosPedido {
+    clear: both;
+    overflow: hidden;
+}
+#datosEnvio {
+    float: left;
+    width: 40%;
+}
+#datosBancarios {
+    float: right;
+    width: 59%;
+}
+#botones {
+    padding: 10px;
+}

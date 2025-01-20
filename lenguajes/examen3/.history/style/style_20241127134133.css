@@ -1,0 +1,54 @@
+body {
+    background-color: #f4f4f4;
+}
+.container {
+    width: 95%;
+}
+.center {
+    text-align: center;
+}
+table {
+    border: 3px double white;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 1%;
+    width: 100%;
+}
+td, tr {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+form {
+    border: 3px white;
+    border-style: dashed;
+    overflow: hidden;
+}
+fieldset {
+    width: 45%;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    border: 1px solid white;
+    height: 100%;
+}
+.datospersonales {
+    float: left;
+}
+.datosconsulta {
+    float: left;
+}
+.web {
+    clear:both;
+    border: 5px dashed white;
+    margin: 5%;
+    padding: 1%;
+    margin-left: 15%;
+    width: 70%;
+}
+label {
+    width:max-content;
+}
+input {
+    padding: 0.5%;
+    margin: 0.5%;
+    width: 30%;
+}

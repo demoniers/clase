@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "javac",
+            "args": [
+                "-d",
+                "bin",
+                "-sourcepath",
+                "src",
+                "src/Main.java",
+                "src/view/Main.java",
+                "src/controller/BookController.java",
+                "src/model/IModel.java",
+                "src/model/repository/ModelMemory.java",
+                "src/model/repository/ModelDatabase.java",
+                "src/model/entidades/Book.java",
+                "src/utils/Config.java",
+                "src/utils/TerminalUtils.java"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$javac"],
+            "detail": "Compiles Java sources"
+        }
+    ]
+}
