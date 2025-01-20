@@ -1,4 +1,8 @@
-// Encapsulamiento
+/* Encapsulamiento ->
+Los atributos nombre, descripcion y estado son privados y se accede a ellos a través de métodos públicos (getters y setters).
+Modulos bien Definidos ->
+La clase Tarea tiene métodos específicos para manejar su estado (getEstado, setEstado, etc.).
+*/
 public class Tarea {
     private String nombre;
     private String descripcion;
@@ -32,7 +36,11 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 }
-// Herencia y 3. Polimorfismo
+/* Herencia --> 
+La clase TareaConPrioridad hereda de Tarea, reutilizando sus atributos y métodos, y añadiendo el atributo prioridad.
+Polimorfismo ->
+Aunque no se muestra explícitamente en este ejemplo, TareaConPrioridad puede ser utilizada en lugar de Tarea en cualquier contexto donde se espera un objeto de tipo Tarea.
+*/ 
 class TareaConPrioridad extends Tarea {
     private int prioridad;
 

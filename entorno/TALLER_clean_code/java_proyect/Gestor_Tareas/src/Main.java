@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-// Responsabilidad Única
 public class Main {
     public static void main(String[] args) {
         GestorDeTareasImpl gestor = new GestorDeTareasImpl();
@@ -92,4 +91,9 @@ public class Main {
         gestor.mostrarTareas();
         scan.close();
     }
-}
+}/* Modularidad ->
+GestorDeTareasImpl y Tarea son módulos separados que realizan tareas específicas. Esto facilita la actualización o el cambio de cada módulo sin afectar otro
+
+Reutilizacion de codigo ->
+Los métodos en GestorDeTareasImpl son reutilizados por diferentes partes del código, como en la clase Main.
+ */

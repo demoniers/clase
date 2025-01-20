@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// 7. Segregación de Interfaces 
+/* Segregación de Interfaces ->
+ La interfaz GestorDeTareas contiene solo métodos relacionados con la gestión de tareas (agregarTarea, eliminarTarea, buscarTarea, mostrarTareas), lo que mantiene la interfaz enfocada y relevante.
+*/
 interface GestorDeTareas {
     void agregarTarea(Tarea tarea);
     void eliminarTarea(String nombre);
@@ -9,7 +11,9 @@ interface GestorDeTareas {
     void mostrarTareas();
 }
 
-// 5. Sustitución de Liskov
+/* Sustitución de Liskov ->
+GestorDeTareasImpl implementa GestorDeTareas y puede ser utilizada en cualquier contexto donde se espera un GestorDeTareas, respetando los contratos definidos en la interfaz.
+*/
 public class GestorDeTareasImpl implements GestorDeTareas {
     private List<Tarea> tareas;
 
