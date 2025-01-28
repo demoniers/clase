@@ -24,7 +24,7 @@ public class Config {
 	}
 
 	// Singleton pattern
-	private static String configPath = "C:\\Users\\USUARIO\\Desktop\\book.config";
+	private static String configPath = "C:\\Users\\alumnofp\\Desktop\\clase\\programacion\\programacion02\\proyecto001\\src\\config\\book.config";
 	private static Config config;
 	
 	public static Config instance() {

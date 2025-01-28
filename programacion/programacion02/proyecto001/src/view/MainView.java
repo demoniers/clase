@@ -11,10 +11,12 @@ public class MainView {
     public void RunRutin() {
         int option;
         String optioncadena;
+
+
        do {
             TerminalUtils.imprime("Menu de libreria");
             TerminalUtils.imprime("================");
-            TerminalUtils.imprime("1. Listar Libros \n 2. Crear libro \n 0. Salir");
+            TerminalUtils.imprime("1. Listar Libros \n 2. Crear libro \n 3. Modificar libro \n 4. Eliminar libro \n 0. Salir");
             optioncadena = TerminalUtils.introduce();
             try {
                 option = Integer.parseInt(optioncadena);                
@@ -43,8 +45,46 @@ public class MainView {
                    TerminalUtils.imprime(book.toTerminalCreation());
                    TerminalUtils.imprime("Si los datos estan incorrectos entra en la opcion 3");
                 }
+                case 3 -> {
+                    TerminalUtils.imprime("Intoduce ID del libro a buscar:");
+                    String ids = TerminalUtils.introduce();
+                    int id = Integer.parseInt(ids);
+                    Book book = bookController.search(id);
+                    if (book != null) {
+                        // AÑADIR IF PARA CONTROLAR LA LISTA DE LIBROS
+                        TerminalUtils.imprime("Titulo: "+book.getName()+" ISBN: "+book.getISBN());
+                        TerminalUtils.imprime("Nuevo Titulo: ");
+                        String title = TerminalUtils.introduce();
+                        TerminalUtils.imprime("Nuevo Isbn: ");
+                        String isbn = TerminalUtils.introduce();
+                        bookController.modify(id, isbn, title);
+                        Book newbook = bookController.viewnew(id);
+                        TerminalUtils.imprime("Titulo: "+newbook.getName()+" ISBN: "+newbook.getISBN());
+                    } else {
+                        TerminalUtils.imprime("No se encontro el libro con el id "+id+" observe la lista y vuelva a intertarlo.");
+                    }
+                }
+                case 4 -> {
+                    TerminalUtils.imprime("Intoduce ID del libro a buscar:");
+                    String ids = TerminalUtils.introduce();
+                    int id = Integer.parseInt(ids);
+                    Book book = bookController.search(id);
+                    if (book != null) {
+                        TerminalUtils.imprime("Titulo: "+book.getName()+" ISBN: "+book.getISBN());
+                        TerminalUtils.imprime("Deseas elimar? (s/n)");
+                        String son = TerminalUtils.introduce();
+                        if (son.equals("s")) {
+                            bookController.delete(id, book);
+                        }
+                    } else {
+                        TerminalUtils.imprime("No se encontro el libro con el id "+id+" observe la lista y vuelva a intertarlo.");
+                    }
+                }
             }
         }  while (option != 0);
         TerminalUtils.imprime("Programa finalizado");
+    }
+    public MainView () {
+        bookController = new BookController();
     }
 }
