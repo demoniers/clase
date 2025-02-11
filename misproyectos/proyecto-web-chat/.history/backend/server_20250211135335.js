@@ -59,16 +59,20 @@ io.on('connection', (socket) => {
     });
 // GESTION DE MENSAJES 
     socket.on('chat message', (msg) => {
-        db.run('INSERT INTO messages (username, message, timestamp) VALUES (?, ?, ?)', [msg.username, msg.message, new Date().toISOString()]);
+        // Línea que añade el prefijo "privado:" si hay un destinatario específico
+        const messageContent = msg.recipient ? `privado: ${msg.message}` : msg.message;
+//        db.run('INSERT INTO messages (username, message, timestamp) VALUES (?, ?, ?)', [msg.username, msg.message, new Date().toISOString()]);
         if (msg.recipient) {
             const recipientSocketId = userSockets.get(msg.recipient);
             if (recipientSocketId) {
-                const mst_t = 'private: '+msg;
+                // Enviar mensaje privado al destinatario específico
                 io.to(recipientSocketId).emit('chat message', msg);
+                db.run('INSERT INTO messages (username, message, timestamp, recipient) VALUES (?, ?, ?, ?)', [msg.username, messageContent, new Date().toISOString(), msg.recipient || null]);
             } else {
                 socket.emit('error', 'Recipient not online');
             }
         } else {
+            db.run('INSERT INTO messages (username, message, timestamp) VALUES (?, ?, ?)', [msg.username, msg.message, new Date().toISOString()]);
             io.emit('chat message', msg); // Broadcast si no hay destinatario específico
         }
     });
@@ -88,6 +92,19 @@ io.on('connection', (socket) => {
     });
 });
 
+// obtener historial de mensajes
+app.get('/message-history', (req, res) => {
+    db.all('SELECT * FROM messages WHERE recipient = NULL ORDER BY timestamp', [], (err, rows) => {
+        if (err) {
+            return res.status(400).send('Error fetching message history');
+        }
+        res.json(rows);
+    });
+});
+
+
+
+// OBTENCION USUARIOS CONECTADOS
 app.get('/online-users', (req, res) => {
     db.all('SELECT username FROM users WHERE online = 0', [], (err, rows) => {
         if (err) {

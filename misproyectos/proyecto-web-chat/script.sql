@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     message TEXT NOT NULL,
-    timestamp TEXT NOT NULL
+    timestamp TEXT NOT NULL,
+    recipient TEXT DEFAULT NULL
 );
 
-ALTER TABLE messages ADD COLUMN recipient TEXT;
 
 
 -- Crear la tabla de usuarios

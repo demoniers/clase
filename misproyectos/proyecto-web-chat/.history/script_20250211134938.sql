@@ -3,8 +3,11 @@ CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     message TEXT NOT NULL,
-    timestamp TEXT NOT NULL
+    timestamp TEXT NOT NULL,
+    recipient TEXT DEFAULT NULL
 );
+
+
 
 -- Crear la tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (
@@ -13,7 +16,6 @@ CREATE TABLE IF NOT EXISTS users (
     identifier TEXT NOT NULL UNIQUE,
     online INTEGER DEFAULT 0
 );
-
 -- Índices para mejorar el rendimiento
 CREATE INDEX idx_username_messages ON messages (username);
 CREATE INDEX idx_timestamp ON messages (timestamp);

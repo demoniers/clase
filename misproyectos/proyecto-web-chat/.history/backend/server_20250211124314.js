@@ -93,9 +93,15 @@ io.on('connection', (socket) => {
 });
 
 // obtener historial de mensajes
-app.get('./message-history', (req, res) => {
-    db.all('SELECT * FROM messages ORDER BY timestamp', [], (err, rows) => 
-})
+app.get('/message-history', (req, res) => {
+    db.all('SELECT * FROM messages WHERE recipient = NULL ORDER BY timestamp', [], (err, rows) => {
+        if (err) {
+            return res.status(400).send('Error fetching message history');
+        }
+        res.json(rows);
+    });
+});
+
 
 
 // OBTENCION USUARIOS CONECTADOS
