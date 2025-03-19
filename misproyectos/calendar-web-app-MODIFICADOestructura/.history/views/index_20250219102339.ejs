@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario de Tareas, Trabajos y Competiciones</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .tachado {
+      text-decoration: line-through;
+    }
+    .ganancias {
+      width: 50%;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calendario de Tareas, Trabajos y Competiciones</h1>
+
+  <!-- Formulario para agregar tareas -->
+  <form action="/agregar-tarea" method="post">
+    <input type="text" name="descripcion" placeholder="Descripción de la tarea" required>
+    <input type="date" name="fecha" required>
+    <button type="submit">Agregar Tarea</button>
+  </form>
+
+  <!-- Formulario para agregar trabajos -->
+  <form action="/agregar-trabajo" method="post">
+    <input type="text" name="descripcion" placeholder="Descripción del trabajo" required>
+    <input type="text" name="diasTrabajo" placeholder="Días de trabajo (ej. Lunes, Miércoles)" required>
+    <input type="number" name="pago" placeholder="Pago" required>
+    <select name="frecuenciaPago" required>
+      <option value="día">Por día</option>
+      <option value="mes">Por mes</option>
+    </select>
+    <button type="submit">Agregar Trabajo</button>
+  </form>
+
+  <!-- Formulario para agregar competiciones -->
+  <form action="/agregar-competicion" method="post">
+    <input type="text" name="descripcion" placeholder="Descripción de la competición" required>
+    <input type="date" name="fechaInicio" required>
+    <input type="date" name="fechaFin" required>
+    <button type="submit">Agregar Competición</button>
+  </form>
+
+  <!-- Navegación entre meses -->
+  <div>
+    <form action="/" method="get">
+      <button type="submit" name="mes" value="<%= mesSeleccionado - 1 %>">&lt; Mes Anterior</button>
+      <span><%= new Date(añoSeleccionado, mesSeleccionado).toLocaleString('es-ES', { month: 'long', year: 'numeric' }) %></span>
+      <button type="submit" name="mes" value="<%= mesSeleccionado + 1 %>">Mes Siguiente &gt;</button>
+      <input type="hidden" name="año" value="<%= añoSeleccionado %>">
+    </form>
+  </div>
+
+  <!-- Calendario de tareas, trabajos y competiciones -->
+  <table>
+    <thead>
+      <tr>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miércoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% 
+        const primerDiaMes = new Date(añoSeleccionado, mesSeleccionado, 1);
+        const primerDiaSemana = primerDiaMes.getDay() === 0 ? 6 : primerDiaMes.getDay() - 1;
+        let diaActual = new Date(añoSeleccionado, mesSeleccionado, 1 - primerDiaSemana);
+        for (let i = 0; i < 6; i++) { 
+      %>
+        <tr>
+          <% for (let j = 0; j < 7; j++) { %>
+            <td>
+              <% if (diaActual.getMonth() === mesSeleccionado) { %>
+                <%= diaActual.getDate() %><br>
+                <% 
+                  tareas.forEach(tarea => { 
+                    const tareaFecha = new Date(tarea.fecha);
+                    if (tareaFecha.toDateString() === diaActual.toDateString()) { 
+                %>
+                  <div><%= tarea.descripcion %></div>
+                <% 
+                    }
+                  });
+                  trabajos.forEach(trabajo => {
+                    const diasTrabajo = trabajo.diasTrabajo.split(',').map(d => d.trim().toLowerCase());
+                    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+                    let trabajoTachado = false;
+                    if (diasTrabajo.includes(diasSemana[diaActual.getDay()])) {
+                      competiciones.forEach(competicion => {
+                        const fechaInicio = new Date(competicion.fechaInicio);
+                        const fechaFin = new Date(competicion.fechaFin);
+                        if (diaActual >= fechaInicio && diaActual <= fechaFin) {
+                          trabajoTachado = true;
+                        }
+                      });
+                %>
+                  <div class="<%= trabajoTachado ? 'tachado' : '' %>"><%= trabajo.descripcion %></div>
+                <% 
+                    }
+                  });
+                  competiciones.forEach(competicion => {
+                    const fechaInicio = new Date(competicion.fechaInicio);
+                    const fechaFin = new Date(competicion.fechaFin);
+                    if (diaActual >= fechaInicio && diaActual <= fechaFin) {
+                %>
+                  <div><%= competicion.descripcion %></div>
+                <% 
+                    }
+                  });
+                %>
+              <% } %>
+              <% diaActual.setDate(diaActual.getDate() + 1); %>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <!-- Cuadro de ganancias por trabajo -->
+  <h2>Ganancias por Trabajo</h2>
+  <table class="ganancias">
+    <thead>
+      <tr>
+        <th>Nombre del Trabajo</th>
+        <th>Días por Mes</th>
+        <th>Total Mensual</th>
+        <th>Total Diario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% gananciasTrabajos.forEach(ganancia => { %>
+        <tr>
+          <td><%= ganancia.nombre %></td>
+          <td><%= ganancia.diasPorMes %></td>
+          <td><%= ganancia.totalMes %></td>
+          <td><%= ganancia.totalDia %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

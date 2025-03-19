@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruleta Mejorada</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="indicador"></div>
+    <div class="ruleta" id="ruleta"></div>
+  </div>
+  <button id="girar">¡Girar!</button>
+
+  <!-- Modal para mostrar premio -->
+  <div id="modal-premio" class="modal">
+    <div class="modal-contenido">
+      <span id="cerrar-modal" class="cerrar">&times;</span>
+      <h2>¡Enhorabuena!</h2>
+      <p id="mensaje-premio"></p>
+    </div>
+  </div>
+
+  <script src="/ruleta.js"></script>
+</body>
+</html>

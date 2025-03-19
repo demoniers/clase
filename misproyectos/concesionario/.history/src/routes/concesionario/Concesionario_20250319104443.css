@@ -1,0 +1,147 @@
+/* Concesionario.css */
+
+/* Estilo general */
+.concesionario {
+  font-family: 'Arial', sans-serif;
+  color: white;
+  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+/* Contenedor principal del contenido */
+.contenido {
+  display: flex;
+  flex-wrap: wrap; /* Responsivo */
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 1300px;
+  margin-bottom: 30px;
+  justify-content: space-between; /* Espacio entre imagen y características */
+}
+
+/* Imagen del coche */
+.imagen-grande {
+  flex: 2; /* Ocupa más espacio relativo */
+  max-width: 840px;
+  text-align: center;
+}
+
+.imagen-grande img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.imagen-grande img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 1);
+}
+
+/* Estadísticas del coche */
+.caracteristicas {
+  background: #1f1f1f88;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  color: white;
+  flex: 1; /* Espacio proporcional */
+  max-width: 300px; /* Ancho máximo */
+}
+
+.caracteristicas h3 {
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #e2b007;
+  font-size: 1.5rem;
+}
+
+.barra {
+  margin-bottom: 15px;
+}
+
+.barra label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.barra-externa {
+  background: #333;
+  border-radius: 10px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.barra-interna {
+  background: #e2b007;
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+/* Barra de navegación */
+.barra-navegacion {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.barra-navegacion::-webkit-scrollbar {
+  height: 10px;
+}
+
+.barra-navegacion::-webkit-scrollbar-thumb {
+  background-color: #e2b007;
+  border-radius: 10px;
+}
+
+.tarjeta {
+  flex: 0 0 auto;
+  background: #1f1f1f;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.tarjeta img {
+  width: 100%;
+  border-bottom: 1px solid #333;
+  transition: transform 0.3s ease;
+}
+
+.tarjeta:hover img {
+  transform: scale(1.05);
+}
+
+.tarjeta p {
+  color: white;
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.tarjeta:hover {
+  transform: scale(1.1);
+  background: #2c2c2c;
+  border: 2px solid #e2b007;
+}
+
+.tarjeta.seleccionado {
+  background: #e2b007;
+  color: black;
+  transform: scale(1.15);
+  border: 2px solid #fff;
+}

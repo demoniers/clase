@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Calendario de Tareas, Trabajos y Competiciones</title>
+    <link id="estilo" rel="stylesheet" href="/dark-style.css">
+    <style>
+      .horarioTareaTable {
+        border: 1px solid white;
+        border-radius: 15%;
+        padding: 2%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="theme-selec">
+      <h1>Selecciona tu hoja de estilo</h1>
+      <select id="selector-estilo" onchange="cambiarEstilo(this.value)">
+        <option value="kity-style.css">Hello Kitty</option>
+        <option value="dark-style.css" selected>Dark Theme</option>
+        <option value="light-style.css">Light Theme</option>
+      </select>
+    </div>
+
+    <script>
+    function cambiarEstilo(nombreEstilo) {
+      document.getElementById("estilo").href = nombreEstilo;
+    }
+  </script>
+
+    <h1>Calendario de Tareas, Trabajos y Competiciones</h1>
+
+    <div class="form-section">
+      <!-- Formulario para agregar tareas -->
+      <div class="div-formulario">
+        <h2>Agregar Tarea</h2>
+        <form action="/agregar-tarea" method="post">
+          <input type="text" name="descripcion" placeholder="Descripción de la tarea" required>
+          <input type="date" name="fecha" required>
+          <input type="time" name="horaInicio" placeholder="Hora de Inicio">
+          <input type="time" name="horaFin" placeholder="Hora de Fin">
+          <button type="submit">Agregar Tarea</button>
+        </form>
+      </div>
+      
+
+      <!-- Sección de Formulario para agregar trabajos -->
+      <div class="div-formulario">
+        <h2>Agregar Trabajo</h2>
+        <form action="/agregar-trabajo" method="post">
+          <input type="text" name="descripcion"
+            placeholder="Descripción del trabajo" required>
+          <input type="text" name="diasTrabajo"
+            placeholder="Días de trabajo (ej. Lunes, Miércoles)" required>
+          <input type="number" name="pago" placeholder="Pago" required>
+          <select name="frecuenciaPago" required>
+            <option value="día">Por día</option>
+            <option value="mes">Por mes</option>
+          </select>
+          <input type="date" name="fechaInicio" placeholder="Fecha de Inicio">
+          <input type="date" name="fechaFin" placeholder="Fecha de Fin">
+          <button type="submit">Agregar Trabajo</button>
+        </form>
+      </div>
+
+      <!-- Sección de Formulario para agregar competiciones -->
+      <div class="div-formulario">
+        <h2>Agregar Competición</h2>
+        <form action="/agregar-competicion" method="post">
+          <input type="text" name="descripcion"
+            placeholder="Descripción de la competición" required>
+          <input type="date" name="fechaInicio" required>
+          <input type="date" name="fechaFin" required>
+          <button type="submit">Agregar Competición</button>
+        </form>
+      </div>
+    </div>
+    <!-- Navegación entre meses -->
+    <div class="div-formulario-navegacion">
+      <h2>Navegar entre Meses</h2>
+      <form action="/" method="get">
+        <button type="submit" name="mes" value="<%= mesSeleccionado - 1 %>">&lt;
+          Mes Anterior</button>
+        <span>
+          <%= new Date(añoSeleccionado, mesSeleccionado).toLocaleString('es-ES',
+          { month: 'long' , year: 'numeric' }) %>
+        </span>
+        <button type="submit" name="mes" value="<%= mesSeleccionado + 1 %>">Mes
+          Siguiente &gt;</button>
+        <input type="hidden" name="año" value="<%= añoSeleccionado %>">
+      </form>
+    </div>
+
+    <!-- Calendario de tareas, trabajos y competiciones -->
+    <table>
+      <thead>
+        <tr>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+          <th>Domingo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% const primerDiaMes=new Date(añoSeleccionado, mesSeleccionado, 1);
+        const
+        primerDiaSemana=primerDiaMes.getDay()===0 ? 6 : primerDiaMes.getDay() -
+        1; let diaActual=new
+        Date(añoSeleccionado, mesSeleccionado, 1 - primerDiaSemana); for (let
+        i=0; i < 6; i++) { %>
+        <tr>
+          <% for (let j=0; j < 7; j++) { %>
+          <td>
+            <% if (diaActual.getMonth()===mesSeleccionado) { %>
+            <p>
+              <%= diaActual.getDate() %>
+            </p>
+            <% tareas.forEach(tarea=> {
+            const tareaFecha = new Date(tarea.fecha);
+            if (tareaFecha.toDateString() === diaActual.toDateString()) {
+            %>
+            <div class="tarea">
+              <%= tarea.descripcion %>
+              <% if (tarea.horaInicio || tarea.fechaInicio ) {%>
+                <table class="horarioTareaTable">
+                  <tr>
+                    <td>Inicio:</td>
+                    <td>Fin:</td>
+                  </tr>
+                  <tr>
+                    <td><% if (tarea.horaInicio) { %><%= tarea.horaInicio %><% } %></td>
+                    <td><% if (tarea.horaFin) { %><%= tarea.horaFin %><% } %></td>
+                  </tr>
+                </table>
+              <% } %>
+            </div>
+            <% } }); trabajos.forEach(trabajo=> {
+            const diasTrabajo = trabajo.diasTrabajo.split(',').map(d =>
+            d.trim().toLowerCase());
+            const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles',
+            'jueves', 'viernes', 'sábado'];
+            let trabajoTachado = false;
+            if (diasTrabajo.includes(diasSemana[diaActual.getDay()])) {
+            competiciones.forEach(competicion => {
+            const fechaInicio = new Date(competicion.fechaInicio);
+            const fechaFin = new Date(competicion.fechaFin);
+            if (diaActual >= fechaInicio && diaActual <= fechaFin) {
+            trabajoTachado=true; } }); const
+            trabajoDentroDelRango=(!trabajo.fechaInicio || diaActual>= new
+            Date(trabajo.fechaInicio)) &&
+            (!trabajo.fechaFin || diaActual <= new Date(trabajo.fechaFin)); if
+            (trabajoDentroDelRango) { %>
+            <div class="<%= trabajoTachado ? 'tachado' : 'trabajo' %>">
+              <%= trabajo.descripcion %>
+            </div>
+            <% } } }); competiciones.forEach(competicion=> {
+            const fechaInicio = new Date(competicion.fechaInicio);
+            const fechaFin = new Date(competicion.fechaFin);
+            if (diaActual >= fechaInicio && diaActual <= fechaFin) { %>
+            <div class="competicion">
+              <%= competicion.descripcion %>
+            </div>
+            <% } }); %>
+            <% } %>
+            <% diaActual.setDate(diaActual.getDate() + 1); %>
+          </td>
+          <% } %>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <div class="ganancias">
+      <!-- Cuadro de ganancias por trabajo -->
+      <h2 class="seccionGanancias">Ganancias por Trabajo</h2>
+      <table class="ganancias">
+        <thead>
+          <tr>
+            <th>Nombre del Trabajo</th>
+            <th>Días por Mes</th>
+            <th>Total Mensual</th>
+            <th>Total Diario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% gananciasTrabajos.forEach(ganancia=> { %>
+          <tr>
+            <td>
+              <%= ganancia.nombre %>
+            </td>
+            <td>
+              <%= ganancia.diasPorMes %>
+            </td>
+            <td>
+              <%= ganancia.totalMes %>
+            </td>
+            <td>
+              <%= ganancia.totalDia %>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <img id="hello-kitty" src="/img/hello-kitty.png" alt="Hello Kitty"
+      class="oculto">
+
+    <script>
+    function cambiarEstilo(nombreEstilo) {
+      document.getElementById("estilo").href = nombreEstilo;
+      if (nombreEstilo === "kity-style.css") {
+        document.getElementById("hello-kitty").classList.remove("oculto");
+      } else {
+        document.getElementById("hello-kitty").classList.add("oculto");
+      }
+    }
+  </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('Service Worker registrado con éxito:', registration);
+
+      return registration.pushManager.getSubscription().then(async subscription => {
+        if (subscription) return subscription;
+
+        const response = await fetch('/vapidPublicKey');
+        const vapidPublicKey = await response.text();
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+
+        return registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidKey
+        });
+      });
+    }).then(subscription => {
+      fetch('/subscribe', {
+        method: 'POST',
+        body: JSON.stringify(subscription),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Enviar notificación al cargar la página
+      fetch('/send-notification', {
+        method: 'GET'
+      });
+    }).catch(error => console.error('Service Worker error:', error));
+  });
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+}
+
+  </script>
+  </body>
+
+</html>

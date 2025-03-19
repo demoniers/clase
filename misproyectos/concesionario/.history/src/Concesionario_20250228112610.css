@@ -1,0 +1,47 @@
+.concesionario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .imagen-grande {
+    width: 80%;
+    text-align: center;
+  }
+  
+  .imagen-grande img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+  
+  .barra-navegacion {
+    display: flex;
+    overflow-x: scroll;
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  .tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .tarjeta img {
+    width: 100px;
+    height: auto;
+    border: 2px solid transparent;
+  }
+  
+  .tarjeta.seleccionado img {
+    border-color: blue;
+  }
+  
+  .tarjeta p {
+    margin-top: 5px;
+  }
+  

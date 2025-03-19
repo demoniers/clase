@@ -1,0 +1,58 @@
+/* Estilo del contenedor */
+.singin-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #1f1f1f;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    color: white;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Título del formulario */
+  .singin-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e2b007;
+  }
+  
+  /* Estilo del formulario */
+  .singin-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .singin-form label {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  
+  .singin-form input,
+  .singin-form select,
+  .singin-form button {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .singin-form input,
+  .singin-form select {
+    background: #333;
+    color: white;
+  }
+  
+  .singin-form button {
+    background: #e2b007;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .singin-form button:hover {
+    background: #d49f07;
+  }
+  

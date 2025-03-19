@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración de Premios</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="config-container">
+    <h1>Configura los Premios</h1>
+    <form id="premios-form">
+      <div>
+        <label for="nombre">Nombre del premio</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <div>
+        <label for="imagen">URL de la imagen (opcional)</label>
+        <input type="text" id="imagen" name="imagen">
+      </div>
+      <button type="submit">Añadir Premio</button>
+    </form>
+    <ul id="lista-premios"></ul>
+  </div>
+  <script src="/config.js"></script>
+</body>
+</html>

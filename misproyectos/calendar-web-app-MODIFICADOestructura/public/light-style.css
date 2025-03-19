@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Blanco */
+    color: #000000; /* Negro */
+    margin-right: 1%;
+  }
+  
+  h1, h2 {
+    text-align: center;
+    color: #ff4500; /* Naranja rojizo */
+  }
+  
+  .table-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  th, td {
+    border: 1px solid #ffa07a; /* Naranja claro */
+    text-align: left;
+    padding: 2px;
+  }
+  th, td p {
+    text-align: center;
+  }
+  th, td div {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #ff7f50; /* Coral */
+    color: #ffffff;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f0e68c; /* Caqui claro */
+  }
+  
+  .form-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    width: 80%;
+  }
+  
+  .div-formulario {
+    background-color: #f0e68c; /* Caqui claro */
+    padding: 20px;
+    border-radius: 8px;
+    width: 20%; /* Cada formulario ocupa el 20% de la página */
+    box-sizing: border-box; /* Incluir padding en el ancho total */
+  }
+  
+  input[type="text"], input[type="date"], input[type="number"], select {
+    margin: 10px 0;
+    padding: 10px;
+    width: 90%; /* Ancho completo del formulario */
+    border: 1px solid #ffa07a; /* Naranja claro */
+    border-radius: 4px;
+    background-color: #ffffe0; /* Amarillo claro */
+    color: #000000; /* Negro */
+  }
+  
+  .div-formulario-navegacion form {
+    width: 25%;
+    margin: auto;
+  }
+  button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #ff4500; /* Naranja rojizo */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff6347; /* Tomato */
+  }
+  
+  table.ganancias th, table.ganancias td {
+    text-align: center;
+  }
+  .ganancias {
+    width: 55%;
+  }
+  .seccionGanancias {
+    margin-top: 60px;
+  }
+  .ganancias table tr td {
+    padding: 5px;
+  }
+  .ganancias table {
+    margin-bottom: 50px;
+  }
+  
+  .theme-selec {
+    float: right;
+  }
+  .theme-selec h1, .theme-selec select {
+    font-size: 10pt;
+    width: auto;
+  }
+  
+  /* Estilo para la imagen de Hello Kitty en la esquina inferior izquierda */
+  #hello-kitty {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 100px; /* Ajusta el tamaño según tus preferencias */
+    height: auto;
+  }
+  
+  /* Clase para ocultar la imagen */
+  .oculto {
+    display: none;
+  }
+  

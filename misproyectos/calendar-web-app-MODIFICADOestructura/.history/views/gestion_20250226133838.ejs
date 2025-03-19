@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Tareas, Trabajos y Competiciones</title>
+  <link id="estilo" rel="stylesheet" href="/dark-style.css">
+</head>
+<body>
+  <div class="theme-selec">
+    <h1>Selecciona tu hoja de estilo</h1>
+    <select id="selector-estilo" onchange="cambiarEstilo(this.value)">
+        <option value="kity-style.css">Hello Kitty</option>
+        <option value="dark-style.css" selected>Dark Theme</option>
+        <option value="light-style.css">Light Theme</option>
+    </select>
+  </div>
+
+  <script>
+      function cambiarEstilo(nombreEstilo) {
+          document.getElementById("estilo").href = nombreEstilo;
+      }
+  </script>
+  <h1>Gestión de Tareas, Trabajos y Competiciones</h1>
+
+  <h2>Tareas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Hora de Inicio</th>
+        <th>Hora de Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tareas.forEach(tarea => { %>
+      <tr>
+        <td><%= tarea.id %></td>
+        <td><%= tarea.descripcion %></td>
+        <td><%= tarea.fecha %></td>
+        <td>
+          <form action="/actualizar-tarea" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= tarea.id %>">
+            <input type="text" name="descripcion" value="<%= tarea.descripcion %>">
+            <input type="date" name="fecha" value="<%= tarea.fecha %>">
+            <input type="time" name="horaInicio" value="<%= tarea.horaInicio %>">
+            <input type="time" name="horaFin" value="<%= tarea.horaFin %>">
+            <button type="submit">Actualizar</button>
+          </form>
+          <form action="/eliminar-tarea" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= tarea.id %>">
+            <button type="submit">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <h2>Trabajos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Días de Trabajo</th>
+        <th>Pago</th>
+        <th>Frecuencia de Pago</th>
+        <th>Hora de Inicio</th>
+        <th>Hora de Fin</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% trabajos.forEach(trabajo => { %>
+      <tr>
+        <td><%= trabajo.id %></td>
+        <td><%= trabajo.descripcion %></td>
+        <td><%= trabajo.diasTrabajo %></td>
+        <td><%= trabajo.pago %></td>
+        <td><%= trabajo.frecuenciaPago %></td>
+        <td><%= trabajo.fechaInicio %></td>
+        <td><%= trabajo.fechaFin %></td>
+        <td>
+          <form action="/actualizar-trabajo" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= trabajo.id %>">
+            <input type="text" name="descripcion" value="<%= trabajo.descripcion %>">
+            <input type="text" name="diasTrabajo" value="<%= trabajo.diasTrabajo %>">
+            <input type="number" name="pago" value="<%= trabajo.pago %>">
+            <select name="frecuenciaPago">
+              <option value="día" <%= trabajo.frecuenciaPago === 'día' ? 'selected' : '' %>>Por día</option>
+              <option value="mes" <%= trabajo.frecuenciaPago === 'mes' ? 'selected' : '' %>>Por mes</option>
+            </select>
+            <input type="date" name="fechaInicio" value="<%= trabajo.fechaInicio %>">
+            <input type="date" name="fechaFin" value="<%= trabajo.fechaFin %>">
+            <input type="time" name="horaInicio" value="<%= tarea.horaInicio %>">
+            <input type="time" name="horaFin" value="<%= tarea.horaFin %>">
+            <button type="submit">Actualizar</button>
+          </form>
+          <form action="/eliminar-trabajo" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= trabajo.id %>">
+            <button type="submit">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <h2>Competiciones</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% competiciones.forEach(competicion => { %>
+      <tr>
+        <td><%= competicion.id %></td>
+        <td><%= competicion.descripcion %></td>
+        <td><%= competicion.fechaInicio %></td>
+        <td><%= competicion.fechaFin %></td>
+        <td>
+          <form action="/actualizar-competicion" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= competicion.id %>">
+            <input type="text" name="descripcion" value="<%= competicion.descripcion %>">
+            <input type="date" name="fechaInicio" value="<%= competicion.fechaInicio %>">
+            <input type="date" name="fechaFin" value="<%= competicion.fechaFin %>">
+            <button type="submit">Actualizar</button>
+          </form>
+          <form action="/eliminar-competicion" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= competicion.id %>">
+            <button type="submit">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  
+  <img id="hello-kitty" src="/img/hello-kitty.png" alt="Hello Kitty" class="oculto">
+
+  <script>
+    function cambiarEstilo(nombreEstilo) {
+      document.getElementById("estilo").href = nombreEstilo;
+      if (nombreEstilo === "kity-style.css") {
+        document.getElementById("hello-kitty").classList.remove("oculto");
+      } else {
+        document.getElementById("hello-kitty").classList.add("oculto");
+      }
+    }
+  </script>
+</body>
+</html>

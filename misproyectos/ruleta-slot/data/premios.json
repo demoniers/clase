@@ -1,0 +1,7 @@
+[
+    { "nombre": "Descuento en bebidas", "img": "/images/descuento-bebidas.png" },
+    { "nombre": "Entrada VIP", "img": "/images/entrada-vip.png" },
+    { "nombre": "Chupito gratis", "img": "" },
+    { "nombre": "Premio sorpresa", "img": "/images/premio-sorpresa.png" }
+  ]
+  
