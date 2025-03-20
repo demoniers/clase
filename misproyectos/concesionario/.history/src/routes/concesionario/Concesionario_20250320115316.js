@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Concesionario.css'; // Archivo CSS actualizado
 
 function Concesionario() {
   const [coches, setCoches] = useState([]);
   const [cocheSeleccionado, setCocheSeleccionado] = useState(null);
-  const barraRef = useRef(null); // Referencia a la barra de navegación
-  const intervaloRef = useRef(null); // Referencia para controlar el intervalo de desplazamiento
 
   useEffect(() => {
     async function fetchData() {
@@ -25,21 +23,6 @@ function Concesionario() {
     setCocheSeleccionado(coche);
   };
 
-  const iniciarDesplazamiento = (direccion) => {
-    const distanciaDesplazamiento = direccion === 'derecha' ? 5 : -5; // Ajusta la velocidad de desplazamiento
-    intervaloRef.current = setInterval(() => {
-      if (barraRef.current) {
-        barraRef.current.scrollBy({
-          left: distanciaDesplazamiento,
-        });
-      }
-    }, 10); // Cada 10ms realiza un desplazamiento
-  };
-
-  const detenerDesplazamiento = () => {
-    clearInterval(intervaloRef.current); // Detiene el intervalo
-  };
-
   return (
     <div className="concesionario">
       {cocheSeleccionado ? (
@@ -47,6 +30,7 @@ function Concesionario() {
           <div className="imagen-grande">
             <img src={`/img/${cocheSeleccionado.img_coche}`} alt={cocheSeleccionado.nombre_coche} />
           </div>
+          {/* Menú lateral con barras progresivas */}
           <div className="caracteristicas">
             <div className="velocidad-circulo">
               <svg viewBox="0 0 36 36" className="circular-chart">
@@ -62,7 +46,9 @@ function Concesionario() {
                      a 15.9155 15.9155 0 0 1 0 31.831
                      a 15.9155 15.9155 0 0 1 0 -31.831"
                   style={{
-                    strokeDasharray: `${(cocheSeleccionado.velocidad_punta / 500) * 100}, 100`,
+                    strokeDasharray: `${
+                      (cocheSeleccionado.velocidad_punta / 500) * 100
+                    }, 100`,
                   }}
                 />
               </svg>
@@ -79,7 +65,10 @@ function Concesionario() {
                       <div
                         className="barra-fina-interna"
                         style={{
-                          width: `${Math.min((10 - cocheSeleccionado.aceleracion) * 10, 100)}%`,
+                          width: `${Math.min(
+                            (10 - cocheSeleccionado.aceleracion) * 10,
+                            100
+                          )}%`,
                         }}
                       ></div>
                     </div>
@@ -93,7 +82,10 @@ function Concesionario() {
                       <div
                         className="barra-fina-interna"
                         style={{
-                          width: `${Math.min((30 - cocheSeleccionado.consumo) * 3.33, 100)}%`,
+                          width: `${Math.min(
+                            (30 - cocheSeleccionado.consumo) * 3.33,
+                            100
+                          )}%`,
                         }}
                       ></div>
                     </div>
@@ -107,7 +99,9 @@ function Concesionario() {
                       <div
                         className="barra-fina-interna"
                         style={{
-                          width: `${(cocheSeleccionado.newtons_par / 2000) * 100}%`,
+                          width: `${
+                            (cocheSeleccionado.newtons_par / 2000) * 100
+                          }%`,
                         }}
                       ></div>
                     </div>
@@ -121,7 +115,9 @@ function Concesionario() {
                       <div
                         className="barra-fina-interna"
                         style={{
-                          width: `${(cocheSeleccionado.caballos / 2000) * 100}%`,
+                          width: `${
+                            (cocheSeleccionado.caballos / 2000) * 100
+                          }%`,
                         }}
                       ></div>
                     </div>
@@ -147,25 +143,19 @@ function Concesionario() {
         <p>Cargando coches...</p>
       )}
 
-      <div className="barra-navegacion-contenedor">
-        <button className="flecha-izquierda" onMouseDown={() => iniciarDesplazamiento('izquierda')} onMouseLeave={detenerDesplazamiento}>
-          &larr;
-        </button>
-        <div className="barra-navegacion" ref={barraRef}>
-          {coches.map((coche) => (
-            <div
-              key={coche.id}
-              className={`tarjeta ${coche.id === cocheSeleccionado.id ? 'seleccionado' : ''}`}
-              onClick={() => seleccionarCoche(coche)}
-            >
-              <img src={`/img/${coche.img_coche}`} alt={coche.nombre_coche} />
-              <p>{coche.nombre_coche}</p>
-            </div>
-          ))}
-        </div>
-        <button className="flecha-derecha" onMouseDown={() => iniciarDesplazamiento('derecha')} onMouseLeave={detenerDesplazamiento}>
-          &rarr;
-        </button>
+      <div
+        className="barra-navegacion"
+      >
+        {coches.map((coche) => (
+          <div
+            key={coche.id}
+            className={`tarjeta ${coche.id === cocheSeleccionado.id ? 'seleccionado' : ''}`}
+            onClick={() => seleccionarCoche(coche)}
+          >
+            <img src={`/img/${coche.img_coche}`} alt={coche.nombre_coche} />
+            <p>{coche.nombre_coche}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

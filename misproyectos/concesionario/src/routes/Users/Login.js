@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import './login.css'; // Importa los estilos personalizados para el login
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import React, { useState, useEffect } from 'react';
+import './login.css';
+import { useNavigate } from 'react-router-dom';
+import { isLoggedIn } from './auth'; // Importar la función de autenticación
 
 function Login() {
-  const navigate = useNavigate(); // Hook para navegar
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     correo: '',
     contraseña: '',
   });
+
+  useEffect(() => {
+    // Verificar si el usuario ya está logueado
+    if (isLoggedIn()) {
+      navigate('/'); // Redirige al inicio si ya está logueado
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +36,8 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         alert('Inicio de sesión exitoso.');
+        const token = data.token;
+        localStorage.setItem('token', token);
         localStorage.setItem('isLoggedIn', true); // Guardar el estado de sesión
         navigate('/'); // Redirige al componente de inicio
       } else {

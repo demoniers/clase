@@ -5,7 +5,6 @@ function Concesionario() {
   const [coches, setCoches] = useState([]);
   const [cocheSeleccionado, setCocheSeleccionado] = useState(null);
   const barraRef = useRef(null); // Referencia a la barra de navegación
-  const intervaloRef = useRef(null); // Referencia para controlar el intervalo de desplazamiento
 
   useEffect(() => {
     async function fetchData() {
@@ -25,19 +24,14 @@ function Concesionario() {
     setCocheSeleccionado(coche);
   };
 
-  const iniciarDesplazamiento = (direccion) => {
-    const distanciaDesplazamiento = direccion === 'derecha' ? 5 : -5; // Ajusta la velocidad de desplazamiento
-    intervaloRef.current = setInterval(() => {
-      if (barraRef.current) {
-        barraRef.current.scrollBy({
-          left: distanciaDesplazamiento,
-        });
-      }
-    }, 10); // Cada 10ms realiza un desplazamiento
-  };
-
-  const detenerDesplazamiento = () => {
-    clearInterval(intervaloRef.current); // Detiene el intervalo
+  const moverBarra = (direccion) => {
+    if (barraRef.current) {
+      const distanciaDesplazamiento = 200; // Ajusta la distancia de desplazamiento
+      barraRef.current.scrollBy({
+        left: direccion === 'derecha' ? distanciaDesplazamiento : -distanciaDesplazamiento,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
@@ -148,7 +142,7 @@ function Concesionario() {
       )}
 
       <div className="barra-navegacion-contenedor">
-        <button className="flecha-izquierda" onMouseDown={() => iniciarDesplazamiento('izquierda')} onMouseLeave={detenerDesplazamiento}>
+        <button className="flecha-izquierda" onClick={() => moverBarra('izquierda')}>
           &larr;
         </button>
         <div className="barra-navegacion" ref={barraRef}>
@@ -163,7 +157,7 @@ function Concesionario() {
             </div>
           ))}
         </div>
-        <button className="flecha-derecha" onMouseDown={() => iniciarDesplazamiento('derecha')} onMouseLeave={detenerDesplazamiento}>
+        <button className="flecha-derecha" onClick={() => moverBarra('derecha')}>
           &rarr;
         </button>
       </div>

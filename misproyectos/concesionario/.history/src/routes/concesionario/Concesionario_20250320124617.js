@@ -5,7 +5,6 @@ function Concesionario() {
   const [coches, setCoches] = useState([]);
   const [cocheSeleccionado, setCocheSeleccionado] = useState(null);
   const barraRef = useRef(null); // Referencia a la barra de navegación
-  const intervaloRef = useRef(null); // Referencia para controlar el intervalo de desplazamiento
 
   useEffect(() => {
     async function fetchData() {

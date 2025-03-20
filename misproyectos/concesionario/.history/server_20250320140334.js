@@ -16,7 +16,6 @@ const PORT = 5000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
 
 // Conexión a SQLite
 const db = new sqlite3.Database('./coches.db', (err) => {
@@ -46,7 +45,7 @@ app.get('/api/coches', (req, res) => {
     }
   });
 });
-app.post('/api/coches/Aniade', (req, res) => {
+app.post('/api/cochesAniade', (req, res) => {
   const {
     nombre,
     velocidad_punta,

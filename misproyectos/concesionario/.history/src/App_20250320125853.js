@@ -6,7 +6,7 @@ import Singin from './routes/Users/singin';
 import Login from './routes/Users/Login';
 import Logout from './routes/Users/Logout';
 import AdminPanel from './routes/Admin/ControlPanel';
-import VhAdminPanel from './routes/Admin/VehiclePanel';
+import vhAdminPanel from './routes/Admin/VehiclePanel';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/admin/panel" element={<AdminPanel />} />
-      <Route path="/admin/vhpanel" element={<VhAdminPanel />} />
+      <Route path="/admin/vhpanel" element={<vhAdminPanel />} />
     </Routes>
   );
 }

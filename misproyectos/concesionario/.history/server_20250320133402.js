@@ -16,7 +16,6 @@ const PORT = 5000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
 
 // Conexión a SQLite
 const db = new sqlite3.Database('./coches.db', (err) => {
@@ -46,7 +45,7 @@ app.get('/api/coches', (req, res) => {
     }
   });
 });
-app.post('/api/coches/Aniade', (req, res) => {
+app.post('/api/coches/add', (req, res) => {
   const {
     nombre,
     velocidad_punta,
@@ -58,6 +57,19 @@ app.post('/api/coches/Aniade', (req, res) => {
     automatico,
     tiene_levas,
   } = req.body;
+
+  // Validar los campos requeridos
+  if (
+    !nombre ||
+    !velocidad_punta ||
+    !aceleracion ||
+    !consumo ||
+    !newtons_par ||
+    !caballos ||
+    !numero_marchas
+  ) {
+    return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
+  }
 
   // Consulta SQL para insertar el vehículo
   const query = `
@@ -82,7 +94,6 @@ app.post('/api/coches/Aniade', (req, res) => {
       console.error('Error al insertar el vehículo:', err.message);
       res.status(500).json({ error: 'Error al insertar los datos en la base de datos.' });
     } else {
-      ok = true;
       res.status(200).json({ message: 'Vehículo añadido correctamente.', id: this.lastID });
     }
   });
