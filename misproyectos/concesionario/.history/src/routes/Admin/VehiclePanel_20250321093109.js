@@ -86,33 +86,15 @@ function VehiclePanel() {
   };
 
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const datosF = new FormData();
-      datosF.append('imagen', file); // Campo 'imagen' debe coincidir con el backend
-  
-      try {
-        const response = await fetch('http://10.0.0.124:5000/api/upload', {
-          method: 'POST',
-          body: datosF,
-        });
-  
-        if (response.ok) {
-          const data = await response.json();
-          setImagen(data.imageName); // Guarda el nombre de la imagen para usarlo después
-          const previewURL = URL.createObjectURL(file); // Vista previa en el frontend
-          setBackgroundPreview(previewURL);
-        } else {
-          alert('Error al subir la imagen.');
-        }
-      } catch (error) {
-        console.error('Error al subir la imagen:', error);
-        alert('Hubo un error al subir la imagen.');
-      }
+      const { name } = file; // Extraer el nombre del archivo
+      setImagen(name); // Guardar solo el nombre del archivo
+      const previewURL = URL.createObjectURL(file); // Crea la URL temporal para la vista previa
+      setBackgroundPreview(previewURL); // Establece la imagen como vista previa
     }
   };
-  
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,19 +115,9 @@ function VehiclePanel() {
       const response = await fetch('http://10.0.0.124:5000/api/coches/Aniade', {
         method: 'POST',
         headers: {
-          Contenidos: JSON.stringify({
-            nombre: formData.nombre,
-            velocidad_punta: formData.velocidad_punta,
-            aceleracion: formData.aceleracion,
-            consumo: formData.consumo,
-            newtons_par: formData.newtons_par,
-            caballos: formData.caballos,
-            numero_marchas: formData.numero_marchas,
-            automatico: formData.automatico,
-            tiene_levas: formData.tiene_levas,
-            imagen: imagen, // Nombre del archivo
-          }),
-        },        
+          'Content-Type': 'application/json',
+        }
+        body: formDataToSend,
       });
   
       if (response.ok) {

@@ -47,67 +47,49 @@ app.get('/api/coches', (req, res) => {
   });
 });
 app.post('/api/coches/Aniade', (req, res) => {
-  // Extraer el contenido del encabezado personalizado 'Contenidos'
-  const headerData = req.headers.contenidos; // Nota: 'contenidos' debe estar en minúsculas
+  const token = req.headers.Contenidos; // El token debe venir en el encabezado 'Authorization'
+  console.log('Cuerpo recibido:', req.headers.Contenidos);  const {
+    nombre,
+    velocidad_punta,
+    aceleracion,
+    consumo,
+    newtons_par,
+    caballos,
+    numero_marchas,
+    automatico,
+    tiene_levas,
+    imagen, // Agregar el nombre de la imagen
+  } = req.body;
 
-  if (!headerData) {
-    return res.status(400).json({ error: 'Falta el encabezado Contenidos' });
-  }
+  // Consulta SQL para insertar el vehículo
+  const query = `
+    INSERT INTO coches 
+    (nombre_coche, img_coche, velocidad_punta, aceleracion, consumo, newtons_par, caballos, numero_marchas, automatico, tiene_levas) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [
+    nombre,
+    imagen, // Guardar el nombre y extensión de la imagen
+    velocidad_punta,
+    aceleracion,
+    consumo,
+    newtons_par,
+    caballos,
+    numero_marchas,
+    automatico === 'true' ? 1 : 0, // Convertir "true/false" a 1 o 0 (INTEGER)
+    tiene_levas === 'true' ? 1 : 0, // Convertir "true/false" a 1 o 0 (INTEGER)
+  ];
 
-  try {
-    // Parsear el contenido del encabezado como JSON
-    const data = JSON.parse(headerData);
-
-    const {
-      nombre,
-      velocidad_punta,
-      aceleracion,
-      consumo,
-      newtons_par,
-      caballos,
-      numero_marchas,
-      automatico,
-      tiene_levas,
-      imagen, // El nombre de la imagen
-    } = data;
-
-    // Validar los datos (opcional, pero recomendado)
-    if (!nombre || !velocidad_punta || !imagen) {
-      return res.status(400).json({ error: 'Datos incompletos' });
-    }
-
-    // Consulta SQL para insertar el vehículo
-    const query = `
-      INSERT INTO coches 
-      (nombre_coche, img_coche, velocidad_punta, aceleracion, consumo, newtons_par, caballos, numero_marchas, automatico, tiene_levas) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    const values = [
-      nombre,
-      imagen,
-      velocidad_punta,
-      aceleracion,
-      consumo,
-      newtons_par,
-      caballos,
-      numero_marchas,
-      automatico === true ? 1 : 0, // Convertir booleano a 1 o 0
-      tiene_levas === true ? 1 : 0, // Convertir booleano a 1 o 0
-    ];
-
-    db.run(query, values, function (err) {
-      if (err) {
-        console.error('Error al insertar el vehículo:', err.message);
-        return res.status(500).json({ error: 'Error al insertar los datos en la base de datos.' });
-      }
-      ok = true;
+  db.run(query, values, function (err) {
+    if (err) {
+      console.error('Error al insertar el vehículo:', err.message);
+      res.status(500).json({ error: 'Error al insertar los datos en la base de datos.' });
+    } else {
       res.status(200).json({ message: 'Vehículo añadido correctamente.', id: this.lastID });
-    });
-  } catch (err) {
-    console.error('Error al parsear el encabezado Contenidos:', err.message);
-    res.status(400).json({ error: 'El formato del encabezado Contenidos no es válido.' });
-  }
+    }
+  });
 });
+
 
 
 // GESTION USUARIOS #################################
@@ -220,46 +202,6 @@ app.post('/api/users/logout', async (req, res) => {
 });
 
 // ############################################################################
-
-
-
-// ############### MANEJO DE IMAGENES #####################
-
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-
-// Crear carpeta 'img' si no existe
-const imgFolder = path.join(__dirname, '/public/img');
-if (!fs.existsSync(imgFolder)) {
-  fs.mkdirSync(imgFolder, { recursive: true }); // Crear la carpeta y subcarpetas necesarias
-}
-
-// Configuración de multer: guardar imágenes en la carpeta 'img'
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, imgFolder); // Carpeta donde se guardarán las imágenes
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = file.originalname; // Puedes personalizar el nombre aquí si lo necesitas
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage });
-
-// Endpoint para subir imágenes
-app.post('/api/upload', upload.single('imagen'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No se proporcionó un archivo de imagen.' });
-  }
-
-  // Responder con el nombre del archivo subido
-  res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
-});
-
-
-// ###########################################################
 
 // Inicia el servidor
 app.listen(PORT, () => {

@@ -64,15 +64,6 @@ function ControlPanel() {
   const handleNavigationNewCar = () => {
     navigate('/admin/vhpanel'); // Cambia '/ruta-destino' por la ruta deseada
   };
-  const handleNavigationInicio = () => {
-    navigate('/'); // Cambia '/ruta-destino' por la ruta deseada
-  };
-  const handleNavigationConcesionario = () => {
-    navigate('/concesionario'); // Cambia '/ruta-destino' por la ruta deseada
-  };
-  const handleNavigationLogout = () => {
-    navigate('/logout'); // Cambia '/ruta-destino' por la ruta deseada
-  };
   return (
     <div className="control-panel">
       <h1>Panel de Control</h1>

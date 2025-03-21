@@ -238,7 +238,7 @@ if (!fs.existsSync(imgFolder)) {
 // Configuración de multer: guardar imágenes en la carpeta 'img'
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imgFolder); // Carpeta donde se guardarán las imágenes
+    cb(null, 'img'); // Carpeta donde se guardarán las imágenes
   },
   filename: (req, file, cb) => {
     const uniqueName = file.originalname; // Puedes personalizar el nombre aquí si lo necesitas

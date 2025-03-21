@@ -226,22 +226,14 @@ app.post('/api/users/logout', async (req, res) => {
 // ############### MANEJO DE IMAGENES #####################
 
 const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
 
-// Crear carpeta 'img' si no existe
-const imgFolder = path.join(__dirname, '/public/img');
-if (!fs.existsSync(imgFolder)) {
-  fs.mkdirSync(imgFolder, { recursive: true }); // Crear la carpeta y subcarpetas necesarias
-}
-
-// Configuración de multer: guardar imágenes en la carpeta 'img'
+// Configuración de multer: guardar imágenes en la carpeta 'uploads'
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imgFolder); // Carpeta donde se guardarán las imágenes
+    cb(null, 'uploads'); // Carpeta donde se guardarán las imágenes
   },
   filename: (req, file, cb) => {
-    const uniqueName = file.originalname; // Puedes personalizar el nombre aquí si lo necesitas
+    const uniqueName = file.originalname;
     cb(null, uniqueName);
   },
 });
@@ -254,10 +246,8 @@ app.post('/api/upload', upload.single('imagen'), (req, res) => {
     return res.status(400).json({ error: 'No se proporcionó un archivo de imagen.' });
   }
 
-  // Responder con el nombre del archivo subido
-  res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
+  res.status(200).json({ imageName: req.file.filename }); // Devolver el nombre del archivo
 });
-
 
 // ###########################################################
 

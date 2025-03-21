@@ -110,6 +110,8 @@ app.post('/api/coches/Aniade', (req, res) => {
 });
 
 
+
+
 // GESTION USUARIOS #################################
 
 app.post('/api/users/singin', async (req, res) => {
@@ -220,46 +222,6 @@ app.post('/api/users/logout', async (req, res) => {
 });
 
 // ############################################################################
-
-
-
-// ############### MANEJO DE IMAGENES #####################
-
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-
-// Crear carpeta 'img' si no existe
-const imgFolder = path.join(__dirname, '/public/img');
-if (!fs.existsSync(imgFolder)) {
-  fs.mkdirSync(imgFolder, { recursive: true }); // Crear la carpeta y subcarpetas necesarias
-}
-
-// Configuración de multer: guardar imágenes en la carpeta 'img'
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, imgFolder); // Carpeta donde se guardarán las imágenes
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = file.originalname; // Puedes personalizar el nombre aquí si lo necesitas
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage });
-
-// Endpoint para subir imágenes
-app.post('/api/upload', upload.single('imagen'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No se proporcionó un archivo de imagen.' });
-  }
-
-  // Responder con el nombre del archivo subido
-  res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
-});
-
-
-// ###########################################################
 
 // Inicia el servidor
 app.listen(PORT, () => {
