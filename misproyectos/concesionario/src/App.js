@@ -7,6 +7,7 @@ import Login from './routes/Users/Login';
 import Logout from './routes/Users/Logout';
 import AdminPanel from './routes/Admin/ControlPanel';
 import VhAdminPanel from './routes/Admin/VehiclePanel';
+import GestionClientes from './routes/Admin/GestionClientes';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/admin/panel" element={<AdminPanel />} />
       <Route path="/admin/vhpanel" element={<VhAdminPanel />} />
+      <Route path="/admin/gestionCliente" element={<GestionClientes />} />
     </Routes>
   );
 }

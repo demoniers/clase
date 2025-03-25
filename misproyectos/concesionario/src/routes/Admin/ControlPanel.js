@@ -9,21 +9,20 @@ function ControlPanel() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Obtener el token desde localStorage
+    const token = localStorage.getItem('token');
 
     if (!token) {
       alert('No estás autenticado. Redirigiendo al inicio de sesión.');
-      navigate('/login'); // Redirige al login si no hay token
+      navigate('/login');
       return;
     }
 
-    // Verificar el token en el backend
     const verifyToken = async () => {
       try {
         const response = await fetch('http://10.0.0.124:5000/api/users/verify', {
           method: 'POST',
           headers: {
-            Authorization: token, // Agregar el token en el encabezado
+            Authorization: token,
           },
         });
 
@@ -31,22 +30,22 @@ function ControlPanel() {
           const data = await response.json();
           if (data.tipo_usuario <= 2) {
             alert('No tienes acceso al Panel de Control. Redirigiendo al inicio.');
-            navigate('/'); // Redirige al inicio si el nivel de acceso es menor o igual a 2
+            navigate('/');
           } else {
-            setUserData(data); // Guardar los datos del usuario
+            setUserData(data);
           }
         } else {
           const errorData = await response.json();
           setError(errorData.error);
           alert('Sesión no válida o expirada. Redirigiendo al inicio de sesión.');
-          localStorage.removeItem('token'); // Eliminar token
-          navigate('/login'); // Redirige al login
+          localStorage.removeItem('token');
+          navigate('/login');
         }
       } catch (err) {
         console.error('Error al verificar el token:', err);
         setError('Error al verificar la sesión.');
       } finally {
-        setLoading(false); // Finaliza el estado de carga
+        setLoading(false);
       }
     };
 
@@ -54,52 +53,141 @@ function ControlPanel() {
   }, [navigate]);
 
   if (loading) {
-    return <p className="loading">Cargando...</p>; // Mensaje de carga mientras se verifica el token
+    return <p className="loading">Cargando...</p>;
   }
 
   if (error) {
-    return <p className="error">Error: {error}</p>; // Mostrar error en caso de fallo
+    return <p className="error">Error: {error}</p>;
   }
 
-  const handleNavigationNewCar = () => {
-    navigate('/admin/vhpanel'); // Cambia '/ruta-destino' por la ruta deseada
+  const handleNavigation = (path) => {
+    navigate(path);
   };
-  const handleNavigationInicio = () => {
-    navigate('/'); // Cambia '/ruta-destino' por la ruta deseada
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0]; // Obtener el archivo seleccionado
+  
+    if (file) {
+      const userId = userData.userId; // ID del usuario
+      const timestamp = Date.now(); // Generar un timestamp único
+      const extension = file.name.split('.').pop(); // Obtener la extensión del archivo
+      const filename = `profile_${userId}_${timestamp}.${extension}`; // Crear el nombre del archivo
+  
+      console.log('Nuevo nombre del archivo:', filename);
+  
+      // Crear un objeto FormData para subir la imagen al servidor
+      const imgData = new FormData();
+      imgData.append('imagen', file, filename); // Adjuntar el archivo con el nuevo nombre
+  
+      // Enviar la solicitud de la imagen
+      try {
+        const response = await fetch('http://10.0.0.124:5000/api/uploadProfile', {
+          method: 'POST',
+          body: imgData,
+        });
+  
+        if (response.ok) {
+          const result = response.json(); // Obtener la respuesta en JSON
+          console.log('Imagen subida exitosamente:', result.imageName);
+        } else {
+          console.error('Error al subir la imagen');
+          alert('Error al subir la imagen.');
+        }
+      } catch (error) {
+        console.error('Error al subir la imagen:', error);
+        alert('Hubo un error al subir la imagen.');
+      }
+      try {
+        // Preparar el contenido del encabezado 'Contenidos'
+        const headerContent = JSON.stringify({
+          userId: userId, // ID del usuario
+          filename: filename, // Nombre del archivo
+        });
+
+        // Segunda solicitud para actualizar la base de datos usando el encabezado 'Contenidos'
+        const dbResponse = await fetch('http://10.0.0.124:5000/api/user/update_profile_imgDB', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', // Especificar el tipo de contenido
+            'Contenidos': headerContent, // Adjuntar los datos en el encabezado 'Contenidos'
+          },
+        });
+
+        if (dbResponse.ok) {
+          const dbResult = dbResponse.json();
+          console.log('Imagen actualizada en la base de datos:', dbResult.message);
+        } else {
+          console.error('Error al actualizar la imagen en la base de datos');
+          alert('Error al actualizar la imagen en la base de datos.');
+        }
+      
+      } catch (error) {
+        console.error('Error al subir la imagen:', error);
+        alert('Hubo un error al subir la imagen.');
+      }
+    }
   };
-  const handleNavigationConcesionario = () => {
-    navigate('/concesionario'); // Cambia '/ruta-destino' por la ruta deseada
-  };
-  const handleNavigationLogout = () => {
-    navigate('/logout'); // Cambia '/ruta-destino' por la ruta deseada
-  };
+  
+  
+  
+  
+  
+  
   return (
-    <div className="control-panel">
-      <h1>Panel de Control</h1>
-      {userData && (
-        <div className="user-info">
-          <p><strong>ID Usuario:</strong> {userData.userId}</p>
-          <p><strong>Nivel de Acceso:</strong> {userData.tipo_usuario}</p>
-          <p><strong>Correo:</strong> {userData.correo}</p>
-          <p><strong>Teléfono:</strong> {userData.movil}</p>
-          <p><strong>Nombre:</strong> {userData.nombre} {userData.apellido}</p>
-          <p><strong>DNI:</strong> {userData.dni}</p>
+    <div className="main-container">
+      <aside className="sidebar">
+        <div className="profile-section">
+          <img
+            src={`/img/profile_img/${userData.profile_img}`}
+            alt="Foto de perfil"
+            className="profile-pic"
+          />
+          <p className="user-name">{userData?.nombre} {userData?.apellido}</p>
         </div>
-      )}
-      <div className="redirect-section">
-        <button className="navigation-button" onClick={handleNavigationNewCar}>
-          Crear Vehiculo
-      </button>
-        <button className="navigation-button" onClick={handleNavigationInicio}>
-          Inicio
-      </button>
-        <button className="navigation-button" onClick={handleNavigationConcesionario}>
-          Ir a concesionario
-      </button>
-        <button className="navigation-button" onClick={handleNavigationLogout}>
-          Log Out
-      </button>
-      </div>
+        <nav className="menu">
+          <button onClick={() => navigate('')}>Mis Datos</button>
+          <button onClick={() => navigate('/admin/vhpanel')}>Crear Vehículo</button>
+          <button onClick={() => navigate('/')}>Inicio</button>
+          <button onClick={() => navigate('/concesionario')}>Concesionario</button>
+          <button onClick={() => navigate('/admin/gestionCliente')}>Gestionar Clientes</button>
+          <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
+        </nav>
+      </aside>
+      <main className="content">
+        <div className="panel-header">
+          <h1>Panel de Control</h1>
+        </div>
+        {userData && (
+          <div className="panel-details">
+            <div className="profile-info">
+              <div className="profile-pic-container">
+                <img
+                  src={`/img/profile_img/${userData.profile_img}`}
+                  alt="Foto de perfil"
+                  className="profile-pic-large"
+                  onClick={() => document.getElementById('fileInput').click()} // Hacer clic en el input al hacer clic en la imagen
+                />
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }} // Ocultar el input de archivo
+                  onChange={handleImageChange} // Manejar el cambio de la imagen
+                />
+              </div>
+              <p><strong>Nombre:</strong> {userData.nombre} {userData.apellido}</p>
+              <p><strong>Nivel de Acceso:</strong> {userData.tipo_usuario}</p>
+            </div>
+            <div className="contact-info">
+              <p><strong>Correo:</strong> {userData.correo}</p>
+              <p><strong>Teléfono:</strong> {userData.movil}</p>
+            </div>
+            <div className="dni-info">
+              <p><strong>DNI:</strong> {userData.dni}</p>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

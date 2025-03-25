@@ -150,7 +150,7 @@ app.post('/api/users/login', async (req, res) => {
   if (!correo || !contraseña) {
     return res.status(400).json({ error: 'Correo y contraseña son obligatorios.' });
   }
-
+  
   try {
     // Buscar al usuario en la base de datos
     db.get('SELECT * FROM usuarios WHERE correo = ?', [correo], async (err, user) => {
@@ -164,7 +164,7 @@ app.post('/api/users/login', async (req, res) => {
       const isMatch = await bcrypt.compare(contraseña, user.contraseña);
       if (isMatch) {
         // Crear un token JWT
-        const token = jwt.sign({ id: user.id, tipo_usuario: user.tipo_usuario, nombre: user.nombre, apellido: user.apellido, dni: user.dni, movil: user.movil, correo: user.correo }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, tipo_usuario: user.tipo_usuario, nombre: user.nombre, apellido: user.apellido, dni: user.dni, movil: user.movil, correo: user.correo, profile_img: user.profile_img }, SECRET_KEY, { expiresIn: '1h' });
 
         // Responder con el token
         res.status(200).json({
@@ -201,12 +201,40 @@ app.post('/api/users/verify', (req, res) => {
       movil: decoded.movil,
       dni: decoded.dni,
       correo: decoded.correo,
+      profile_img: decoded.profile_img
     });
   } catch (error) {
     console.error('Error al verificar el token:', error);
     res.status(401).json({ error: 'Sesión no válida o expirada.' });
   }
 });
+
+app.post('/api/users/viewCustomers', (req, res) => {
+  db.all('SELECT * FROM usuarios WHERE tipo_usuario = 0 ORDER BY nombre ASC', (err, users) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    // Organizar la lista de usuarios en un formato limpio para el frontend
+    const listaUsers = users.map(user => ({
+      id: user.id,
+      tipo_usuario: user.tipo_usuario,
+      nombre: user.nombre,
+      apellido: user.apellido,
+      dni: user.dni,
+      movil: user.movil,
+      correo: user.correo,
+      profile_img: user.profile_img,
+    }));
+
+    // Enviar la lista al frontend
+    res.status(200).json({
+      message: 'Lista de usuarios obtenida correctamente.',
+      usuarios: listaUsers, // Enviar la lista al frontend
+    });
+  });
+});
+
 
 
 app.post('/api/users/logout', async (req, res) => {
@@ -230,9 +258,13 @@ const fs = require('fs');
 const path = require('path');
 
 // Crear carpeta 'img' si no existe
-const imgFolder = path.join(__dirname, '/public/img');
+const imgFolderProfile = path.join(__dirname, '/public/img/profile_img');
+const imgFolder = path.join(__dirname, '/public/img/');
 if (!fs.existsSync(imgFolder)) {
   fs.mkdirSync(imgFolder, { recursive: true }); // Crear la carpeta y subcarpetas necesarias
+}
+if (!fs.existsSync(imgFolderProfile)) {
+  fs.mkdirSync(imgFolderProfile, { recursive: true }); // Crear la carpeta y subcarpetas necesarias
 }
 
 // Configuración de multer: guardar imágenes en la carpeta 'img'
@@ -245,8 +277,18 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   },
 });
+const storageProfile = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, imgFolderProfile); // Carpeta donde se guardarán las imágenes
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = file.originalname; // Puedes personalizar el nombre aquí si lo necesitas
+    cb(null, uniqueName);
+  },
+});
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
+const uploadProfile = multer({ storage: storageProfile });
 
 // Endpoint para subir imágenes
 app.post('/api/upload', upload.single('imagen'), (req, res) => {
@@ -257,6 +299,67 @@ app.post('/api/upload', upload.single('imagen'), (req, res) => {
   // Responder con el nombre del archivo subido
   res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
 });
+app.post('/api/uploadProfile', uploadProfile.single('imagen'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No se proporcionó un archivo de imagen.' });
+  }
+
+  // Responder con el nombre del archivo subido
+  res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
+});
+// Endpoint para subir imágenes de perfil
+/*app.post('/', upload.single('imagen'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No se proporcionó un archivo de imagen.' });
+  }
+
+  // Responder con el nombre del archivo subido
+  res.status(200).json({ imageName: req.file.filename, message: 'Imagen guardada correctamente.' });
+});*/
+
+app.post('/api/user/update_profile_imgDB', (req, res) => {
+  // Extraer el contenido del encabezado personalizado 'Contenidos'
+  const headerData = req.headers.contenidos; // Nota: 'contenidos' debe estar en minúsculas
+
+  if (!headerData) {
+    return res.status(400).json({ error: 'Falta el encabezado Contenidos' });
+  }
+
+  try {
+    // Parsear el contenido del encabezado como JSON
+    const data = JSON.parse(headerData);
+
+    const { userId, filename } = data; // Extraer los datos necesarios
+
+    // Validar los datos
+    if (!userId || !filename) {
+      return res.status(400).json({ error: 'Datos incompletos en el encabezado Contenidos' });
+    }
+
+    // Conexión con la base de datos para actualizar la imagen de perfil
+    db.run('UPDATE usuarios SET profile_img = ? WHERE id = ?', [filename, userId], function (err) {
+      if (err) {
+        console.error('Error al actualizar la imagen de perfil:', err.message);
+        return res.status(500).json({ error: 'Error al actualizar los datos en la base de datos.' });
+      }
+
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Usuario no encontrado.' });
+      }
+      ok = true;
+      res.status(200).json({
+        message: 'Imagen de perfil actualizada correctamente.',
+      });
+    });
+  } catch (err) {
+    console.error('Error al parsear el encabezado Contenidos:', err.message);
+    res.status(400).json({ error: 'El formato del encabezado Contenidos no es válido.' });
+  }
+});
+
+
+
+
 
 
 // ###########################################################

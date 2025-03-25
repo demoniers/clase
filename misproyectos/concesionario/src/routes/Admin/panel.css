@@ -1,122 +1,161 @@
-body {
-  margin: 0;
-}
-/* Estilo general del panel */
-.control-panel {
+.main-container {
+  display: flex;
+  height: 100vh;
   font-family: 'Arial', sans-serif;
+  background: #1e1e1e;
   color: #ffffff;
-  background: linear-gradient(135deg, #1e1e1e, #292929);
+}
+
+.sidebar {
+  width: 250px;
+  background: #292929;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  min-height: 100vh;
-  box-sizing: border-box;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
 }
 
-.control-panel h1 {
-  font-size: 2.5rem;
-  color: #e2b007; /* Tono dorado */
+.profile-section {
+  text-align: center;
   margin-bottom: 20px;
-  text-transform: uppercase;
-  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Mensaje de carga y error */
-.loading, .error {
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e2b007;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  color: #e2b007;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #e2b007; /* Tono dorado */
-  margin-top: 20px;
-  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
 }
 
-.error {
-  color: #ff4d4d; /* Rojo claro para errores */
-}
-
-/* Información del usuario */
-.user-info {
-  background: rgba(31, 31, 31, 0.9); /* Fondo semitransparente */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+.menu button {
   width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  text-align: left;
-}
-
-.user-info p {
-  margin: 10px 0;
-  font-size: 1.2rem;
-  color: #cccccc;
-}
-
-.user-info p strong {
-  color: #e2b007; /* Tono dorado */
-}
-
-.user-info p:last-child {
-  margin-bottom: 0;
-}
-
-/* Efectos de hover para destacar */
-.user-info:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
-}
-
-/* Contenedor de la sección de redirección */
-.redirect-section {
-  display: flex;
-  flex-wrap: wrap; /* Permite que los botones se ajusten si hay poco espacio */
-  justify-content: center; /* Centra los botones horizontalmente */
-  gap: 15px; /* Espacio entre los botones */
-  margin-top: 30px; /* Separación desde el contenido anterior */
-  padding: 20px;
-  background: rgba(31, 31, 31, 0.9); /* Fondo semitransparente */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Sombra atractiva */
-}
-
-/* Estilo general de los botones */
-.navigation-button {
-  background-color: #e2b007; /* Tono dorado */
-  color: #1e1e1e; /* Texto oscuro para contraste */
+  background-color: #e2b007;
+  color: #1e1e1e;
   border: none;
-  padding: 15px 25px;
+  padding: 10px 15px;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 5px;
+  margin: 10px 0;
   cursor: pointer;
   text-transform: uppercase;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-/* Hover para los botones */
-.navigation-button:hover {
-  background-color: #f2c417; /* Color más claro al pasar el cursor */
-  transform: scale(1.05); /* Ampliación suave */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
+.menu button:hover {
+  background-color: #f2c417;
+  transform: scale(1.05);
 }
 
-/* Activo o clic en botones */
-.navigation-button:active {
-  transform: scale(0.95); /* Reducción del tamaño al hacer clic */
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
+.content {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Ajuste para pantallas pequeñas */
-@media (max-width: 768px) {
-  .redirect-section {
-    flex-direction: column; /* Los botones se apilan verticalmente */
-    align-items: center;
-  }
+.panel-header h1 {
+  font-size: 2.5rem;
+  color: #e2b007;
+  text-transform: uppercase;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
+}
+.panel-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
+  gap: 20px;
+  background: rgba(31, 31, 31, 0.9); /* Fondo semitransparente */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  max-width: 800px;
+  width: 100%;
+}
 
-  .navigation-button {
-    width: 90%; /* Los botones ocupan la mayoría del ancho en pantallas pequeñas */
-  }
+/* Estilo para cada sección dentro del panel */
+.profile-info, .contact-info, .dni-info {
+  background: rgba(41, 41, 41, 1); /* Fondo sólido oscuro para los recuadros */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ajustar tamaño uniforme para todas las cajas */
+.profile-info {
+  grid-column: span 2; /* Ocupar las dos columnas para que la foto de perfil y nombre sean centrales */
+}
+
+.profile-pic-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #e2b007;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.contact-info p, .dni-info p {
+  font-size: 1.2rem;
+  color: #cccccc;
+}
+
+.contact-info p strong, .dni-info p strong {
+  color: #e2b007;
+}
+
+
+.profile-pic-large {
+  cursor: pointer; /* Cambia el cursor al de clic */
+  transition: transform 0.2s ease;
+}
+
+.profile-pic-large:hover {
+  transform: scale(1.05); /* Pequeño efecto de zoom al pasar el cursor */
+}
+
+/*##################### GESTION USUARIOS 
+######################################## 
+########################################*/
+.user-table-horizontal {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+}
+
+.user-table-horizontal th,
+.user-table-horizontal td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center; /* Centrar contenido horizontalmente */
+}
+
+.user-table-horizontal th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.user-table-horizontal tr:nth-child(even) {
+  background-color: #f9f9f9; /* Color de fondo alternado */
+}
+
+.user-table-horizontal tr:hover {
+  background-color: #f1f1f1; /* Resaltar fila al pasar el ratón */
 }
