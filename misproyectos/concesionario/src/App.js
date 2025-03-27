@@ -8,6 +8,8 @@ import Logout from './routes/Users/Logout';
 import AdminPanel from './routes/Admin/ControlPanel';
 import VhAdminPanel from './routes/Admin/VehiclePanel';
 import GestionClientes from './routes/Admin/GestionClientes';
+import RentalPanel from './routes/Customer/RentalPanel';
+import Profile from './routes/Customer/ProfilePanel';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <Route path="/admin/panel" element={<AdminPanel />} />
       <Route path="/admin/vhpanel" element={<VhAdminPanel />} />
       <Route path="/admin/gestionCliente" element={<GestionClientes />} />
+      <Route path="/rentalPanel" element={<RentalPanel />} />
+      <Route path="/profilePanel" element={<Profile />} />
     </Routes>
   );
 }

@@ -28,7 +28,7 @@ function ControlPanel() {
 
         if (response.ok) {
           const data = await response.json();
-          if (data.tipo_usuario <= 2) {
+          if (data.tipo_usuario < 1) {
             alert('No tienes acceso al Panel de Control. Redirigiendo al inicio.');
             navigate('/');
           } else {
