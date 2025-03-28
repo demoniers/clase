@@ -89,11 +89,11 @@ function RentalPanel() {
     }
   };
 
-  const rentCar = async (carId, Userid, precio_por_dia) => {
+  const rentCar = async (carId, Userid) => {
     const token = localStorage.getItem('token');
     const fechaInicio = new Date().toISOString().split('T')[0]; // Fecha actual
     const fechaFin = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]; // Fecha de fin (1 día después)
-    const precioTotal = precio_por_dia; // Precio total por un día
+    const precioTotal = car.precio_por_dia; // Precio total por un día
   
     try {
       const response = await fetch('http://10.0.0.124:5000/api/alquilar', {
@@ -146,7 +146,7 @@ function RentalPanel() {
         </div>
         <nav className="menu">
           <button onClick={() => navigate('/profilePanel')}>Mis Datos</button>
-          <button onClick={() => navigate('/myrents')}>Mis Alquileres</button>
+          <button onClick={() => navigate('/rentals')}>Mis Alquileres</button>
           <button onClick={() => navigate('/rentalPanel')}>Alquilar</button>
           <button onClick={() => navigate('/')}>Inicio</button>
           <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
@@ -182,7 +182,7 @@ function RentalPanel() {
         </div>
       </main>
       {/* Modal */}
-      {isModalOpen && selectedCar && userData && (
+      {isModalOpen && selectedCar && (
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
@@ -190,7 +190,7 @@ function RentalPanel() {
             <img src={`/img/${selectedCar.img_coche}`} alt={`Imagen de ${selectedCar.nombre_coche}`} />
             <p><strong>{selectedCar.nombre_coche}</strong></p>
             <p>Precio por día: <strong>{selectedCar.precio_por_dia}€</strong></p>
-            <button onClick={() => rentCar(selectedCar.id, userData.dni, selectedCar.precio_por_dia)} className="modal-close-btn">Confirmar Reserva</button>
+            <button onClick={() => rentCar(selectedCar.id, userData.id)} className="modal-close-btn">Confirmar Reserva</button>
             <button onClick={closeModal} className="modal-close-btn">Cancelar</button>
           </div>
         </div>

@@ -89,39 +89,24 @@ function RentalPanel() {
     }
   };
 
-  const rentCar = async (carId, Userid, precio_por_dia) => {
-    const token = localStorage.getItem('token');
-    const fechaInicio = new Date().toISOString().split('T')[0]; // Fecha actual
-    const fechaFin = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]; // Fecha de fin (1 día después)
-    const precioTotal = precio_por_dia; // Precio total por un día
-  
+  const rentCar = async (identifier) => {
     try {
-      const response = await fetch('http://10.0.0.124:5000/api/alquilar', {
+      const response = await fetch('http://10.0.0.124:5000/api/alquilar',{
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
+          id: identifier,
         },
-        body: JSON.stringify({
-          id_usuario: Userid,
-          id_coche: carId,
-          fecha_inicio: fechaInicio,
-          fecha_fin: fechaFin,
-          precio_total: precioTotal,
-        }),
       });
-  
+
       if (response.ok) {
         alert("Se ha alquilado!!");
         fetchCars();
         closeModal();
       } else {
-        const errorData = await response.json();
-        console.error('Error al alquilar el coche:', errorData.error);
-        alert('Error al alquilar el coche. Inténtalo de nuevo.');
+        console.error('Error al obtener coches de la API.');
       }
     } catch (err) {
-      console.error('Error al alquilar el coche:', err);
+      console.error('Error al obtener los coches:', err);
     }
   };
 
@@ -146,7 +131,7 @@ function RentalPanel() {
         </div>
         <nav className="menu">
           <button onClick={() => navigate('/profilePanel')}>Mis Datos</button>
-          <button onClick={() => navigate('/myrents')}>Mis Alquileres</button>
+          <button onClick={() => navigate('/rentals')}>Mis Alquileres</button>
           <button onClick={() => navigate('/rentalPanel')}>Alquilar</button>
           <button onClick={() => navigate('/')}>Inicio</button>
           <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
@@ -182,7 +167,7 @@ function RentalPanel() {
         </div>
       </main>
       {/* Modal */}
-      {isModalOpen && selectedCar && userData && (
+      {isModalOpen && selectedCar && (
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
@@ -190,7 +175,7 @@ function RentalPanel() {
             <img src={`/img/${selectedCar.img_coche}`} alt={`Imagen de ${selectedCar.nombre_coche}`} />
             <p><strong>{selectedCar.nombre_coche}</strong></p>
             <p>Precio por día: <strong>{selectedCar.precio_por_dia}€</strong></p>
-            <button onClick={() => rentCar(selectedCar.id, userData.dni, selectedCar.precio_por_dia)} className="modal-close-btn">Confirmar Reserva</button>
+            <button onClick={() => rentCar(selectedCar.id)} className="modal-close-btn">Confirmar Reserva</button>
             <button onClick={closeModal} className="modal-close-btn">Cancelar</button>
           </div>
         </div>

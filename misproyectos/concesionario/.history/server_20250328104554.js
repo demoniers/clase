@@ -37,21 +37,6 @@ db.run(`
 `);
 
 // Endpoint para obtener los coches
-app.get('/api/alquileres/:id_usuario', (req, res) => {
-  const id_usuario = req.params.id_usuario;
-
-  db.all(`
-    SELECT c.*, a.id, a.fecha_inicio, a.fecha_fin, a.precio_total
-    FROM alquileres a
-    JOIN coches c ON a.id_coche = c.id
-    WHERE a.id_usuario = ?
-  `, [id_usuario], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json(rows);
-  });
-});
 app.post('/api/alquilar', (req, res) => {
   const { id_usuario, id_coche, fecha_inicio, fecha_fin, precio_total } = req.body;
 

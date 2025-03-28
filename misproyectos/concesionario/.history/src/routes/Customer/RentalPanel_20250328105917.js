@@ -146,7 +146,7 @@ function RentalPanel() {
         </div>
         <nav className="menu">
           <button onClick={() => navigate('/profilePanel')}>Mis Datos</button>
-          <button onClick={() => navigate('/myrents')}>Mis Alquileres</button>
+          <button onClick={() => navigate('/rentals')}>Mis Alquileres</button>
           <button onClick={() => navigate('/rentalPanel')}>Alquilar</button>
           <button onClick={() => navigate('/')}>Inicio</button>
           <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
@@ -190,7 +190,7 @@ function RentalPanel() {
             <img src={`/img/${selectedCar.img_coche}`} alt={`Imagen de ${selectedCar.nombre_coche}`} />
             <p><strong>{selectedCar.nombre_coche}</strong></p>
             <p>Precio por día: <strong>{selectedCar.precio_por_dia}€</strong></p>
-            <button onClick={() => rentCar(selectedCar.id, userData.dni, selectedCar.precio_por_dia)} className="modal-close-btn">Confirmar Reserva</button>
+            <button onClick={() => rentCar(selectedCar.id, userData.id, selectedCar.precio_por_dia)} className="modal-close-btn">Confirmar Reserva</button>
             <button onClick={closeModal} className="modal-close-btn">Cancelar</button>
           </div>
         </div>

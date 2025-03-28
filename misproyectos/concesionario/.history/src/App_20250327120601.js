@@ -10,7 +10,6 @@ import VhAdminPanel from './routes/Admin/VehiclePanel';
 import GestionClientes from './routes/Admin/GestionClientes';
 import RentalPanel from './routes/Customer/RentalPanel';
 import Profile from './routes/Customer/ProfilePanel';
-import MyRents from './routes/Customer/myRents';
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
       <Route path="/admin/gestionCliente" element={<GestionClientes />} />
       <Route path="/rentalPanel" element={<RentalPanel />} />
       <Route path="/profilePanel" element={<Profile />} />
-      <Route path="/myrents" element={<MyRents />} />
     </Routes>
   );
 }

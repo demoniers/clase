@@ -41,7 +41,7 @@ app.get('/api/alquileres/:id_usuario', (req, res) => {
   const id_usuario = req.params.id_usuario;
 
   db.all(`
-    SELECT c.*, a.id, a.fecha_inicio, a.fecha_fin, a.precio_total
+    SELECT a.id, c.nombre_coche, a.fecha_inicio, a.fecha_fin, a.precio_total
     FROM alquileres a
     JOIN coches c ON a.id_coche = c.id
     WHERE a.id_usuario = ?
