@@ -1,81 +1,183 @@
+/* Estilo global */
 body {
   margin: 0;
 }
-/* Estilo general de la página */
+
+/* Contenedor principal de la página */
 .home {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Carrusel de imágenes */
-  .carousel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .carousel-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    z-index: 1;
-  }
-  
-  .carousel-image.active {
-    opacity: 1;
-    z-index: 2;
-  }
-  
-  /* Overlay para el texto */
-  .overlay {
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.4); /* Fondo semitransparente para el texto */
-  }
-  
-  .overlay h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .overlay p {
-    font-size: 1.5rem;
-  }
-  
-  /* Botón de "Ver Catálogo" */
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Carrusel de imágenes */
+.carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 1; /* Prioridad para el carrusel */
+}
+
+.carousel-image.active {
+  opacity: 1;
+  z-index: 2; /* Imagen activa en primer plano */
+}
+
+/* Overlay para el texto */
+.overlay {
+  position: relative;
+  z-index: 3; /* Superpone el texto al carrusel */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+}
+
+.overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.overlay p {
+  font-size: 1.5rem;
+}
+
+/* Botón de "Ver Catálogo" */
 .ver-catalogo-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    background: #e2b007;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+  position: relative; /* Garantiza que el botón esté en el flujo correcto */
+  z-index: 4; /* Prioridad superior para el botón */
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffc700; /* Amarillo cálido */
+  background: transparent; /* Sin fondo inicialmente */
+  border: 2px solid #ffc700; /* Borde amarillo */
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden; /* Limita animaciones dentro del botón */
+  transition: color 0.3s ease, background 0.3s ease; /* Animaciones suaves */
+}
+
+.ver-catalogo-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%; /* Comienza fuera del botón */
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 199, 0, 0.2); /* Fondo amarillo oscuro semitransparente */
+  z-index: -1; /* Aparece detrás del texto */
+  transition: left 0.4s ease; /* Animación de degradado */
+}
+
+.ver-catalogo-button:hover::before {
+  left: 0; /* Fondo animado aparece al pasar el ratón */
+}
+
+.ver-catalogo-button:hover {
+  color: #ffffff; /* Texto en blanco sobre el fondo animado */
+  background: rgba(255, 199, 0, 0.3); /* Fondo ligeramente visible */
+}
+
+.ver-catalogo-button:active {
+  background: rgba(255, 199, 0, 0.4); /* Fondo más oscuro al hacer clic */
+  color: #ffffff;
+}
+
+/* Menú de navegación */
+.menu-origin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente discreto */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+  z-index: 1000; /* Mayor prioridad para el menú */
+  backdrop-filter: blur(5px); /* Efecto moderno */
+}
+
+.btn-menu {
+  background: transparent; /* Sin fondo inicial */
+  border: none;
+  color: #ffc700; /* Amarillo cálido */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-transform: capitalize; /* Texto simple */
+  transition: color 0.3s ease, background 0.3s ease; /* Animaciones suaves */
+  position: relative; /* Necesario para animación */
+  overflow: hidden; /* Para limitar el fondo animado */
+}
+
+.btn-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%; /* Comienza fuera del botón */
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 199, 0, 0.2); /* Fondo amarillo semitransparente */
+  z-index: -1; /* Aparece detrás del texto */
+  transition: left 0.4s ease; /* Animación suave */
+}
+
+.btn-menu:hover::before {
+  left: 0; /* Fondo animado aparece al pasar el ratón */
+}
+
+.btn-menu:hover {
+  color: #ffffff; /* Texto en blanco sobre fondo animado */
+}
+
+.btn-menu:active {
+  background: rgba(255, 199, 0, 0.3); /* Fondo más visible al hacer clic */
+  color: #ffffff;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .menu-origin {
+    flex-direction: column; /* Organización vertical para móviles */
+    align-items: flex-start;
+    padding: 15px;
   }
-  
-  .ver-catalogo-button:hover {
-    background: #d49f07;
+
+  .btn-menu {
+    width: 100%; /* Botones ocupan todo el ancho */
+    text-align: left;
+    margin: 5px 0;
+    font-size: 0.9rem; /* Ajuste para móviles */
   }
-  
+
+  .ver-catalogo-button {
+    font-size: 0.9rem; /* Ajuste de tamaño en móviles */
+    padding: 8px 15px; /* Espaciado más compacto */
+  }
+}

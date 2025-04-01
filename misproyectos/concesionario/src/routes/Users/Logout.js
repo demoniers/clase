@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // Asegúrate de importar useState y useEffect
 import { useNavigate } from 'react-router-dom';
-import { logout } from './auth'; // Importar la función logout
-import './logout.css'; // Usar estilos existentes o agregar nuevos
+import { logout } from './auth';
+import './logout.css';
+
+const images = [
+  '/img/lambohuracan.jpg',
+  '/img/ferrari488gtb.jpg',
+  '/img/porsche911.jpg',
+  '/img/audir8.jpg',
+  '/img/teslamodels.jpg',
+];
 
 function LogoutPage() {
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); // Estado para el índice actual
 
-  // Función para manejar la decisión de cerrar sesión
+  // Lógica del carrusel para cambiar imágenes automáticamente
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000); // Cambia cada 3 segundos
+
+    return () => clearInterval(interval); // Limpia el intervalo al desmontar
+  }, []);
+
   const handleLogout = () => {
-    logout(navigate); // Llamar a la función logout para cerrar sesión y redirigir
+    logout(navigate);
   };
 
-  // Función para manejar la decisión de no cerrar sesión
   const handleCancel = () => {
-    navigate('/'); // Redirige a la página principal
+    navigate('/');
   };
 
   return (
@@ -26,6 +44,21 @@ function LogoutPage() {
         <button onClick={handleCancel} className="logout-cancel-button">
           No
         </button>
+      </div>
+      
+        
+      <div className="carousel">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`carousel-image ${
+              index === currentImageIndex ? 'active' : ''
+            }`}
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          ></div>
+        ))}
       </div>
     </div>
   );

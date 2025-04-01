@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importar React Router para la navegación
+import Menu from './menu';
 import './Home.css';
-
 const images = [
   '/img/lambohuracan.jpg',
   '/img/ferrari488gtb.jpg',
@@ -30,6 +30,7 @@ function Home() {
 
   return (
     <div className="home">
+    <Menu />
       <div className="carousel">
         {images.map((image, index) => (
           <div
