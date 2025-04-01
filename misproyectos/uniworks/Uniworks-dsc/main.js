@@ -1,4 +1,5 @@
-// 3 hora 50 min ###
+// 5 hora 20 min ### 
+
 const { Client, GatewayIntentBits } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose();
 
@@ -49,5 +50,4 @@ registerEvents(client, db);
 registerAdmin(client, db);
 comands(client);
 
-// NzkzMjE0MTcwODExOTkwMDI2.G9eYMF.5XfTDIu1FSHU-68r0np8AgyU0x3G3GHcONtny8
 client.login('');

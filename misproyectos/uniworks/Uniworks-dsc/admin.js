@@ -10,7 +10,7 @@ module.exports = (client, db) => {
 
         if (commandName === 'bonusadd') {
             // Validar que el usuario tiene un permiso específico
-            const requiredPermission = 'ManageRoles'; // Cambia esto por el permiso que prefieras
+            const requiredPermission = 'Administrador'; // Cambia esto por el permiso que prefieras
 
             if (!interaction.member.permissions.has(requiredPermission)) {
                 return interaction.reply('No tienes permiso para usar este comando.');
@@ -73,11 +73,13 @@ module.exports = (client, db) => {
                     return interaction.reply('El bono fue añadido, pero no se pudo registrar.');
                 }
                 if (rows) {
+                    let mensajeEnv;
                     for (const row of rows) {
                         const admin = await client.users.fetch(row.admin_id);
                         const user = await client.users.fetch(row.user_id);
-                        interaction.reply(`El admin ${admin} a otorgado un bonus de 5 pts a ${user} el ( ${row.fecha_bonus} ) con el concepto "${row.descripcion}"`)
+                        mensajeEnv += `El admin ${admin} a otorgado un bonus de 5 pts a ${user} el ( ${row.fecha_bonus} ) con el concepto "${row.descripcion}"\n`
                     }
+                    interaction.reply(mensajeEnv);
                 } else {
                     interaction.reply(`¡No hay bonus otorgados!`);
                 }
@@ -85,7 +87,7 @@ module.exports = (client, db) => {
         }
         if (commandName === 'drop') {
             // Validar que el usuario tiene un permiso específico
-            const requiredPermission = 'ManageRoles'; // Cambia esto por el permiso que prefieras
+            const requiredPermission = 'Administrador'; // Cambia esto por el permiso que prefieras
 
             if (!interaction.member.permissions.has(requiredPermission)) {
                 return interaction.reply('No tienes permiso para usar este comando.');
@@ -180,5 +182,98 @@ module.exports = (client, db) => {
                 }
             });
         }
+        if (commandName === 'comprobar_usuarios') {
+            await interaction.reply({ content: 'Procesando usuarios...', ephemeral: true });
+            // Validar que el usuario tiene un permiso específico
+            const requiredPermission = 'Encargado'; // Cambia esto por el permiso que prefieras
+
+            if (!interaction.member.permissions.has(requiredPermission)) {
+                return interaction.reply('No tienes permiso para usar este comando.');
+            }
+            db.all('SELECT * FROM puntos WHERE desactivado = 0 AND desactivado != 1', async (err, rows) => {
+                if (err) {
+                    console.error(err.message);
+                    return interaction.reply({ content: 'Hubo un error al obtener los datos de la base de datos.', ephemeral: true });
+                }
+        
+                if (rows.length === 0) {
+                    return interaction.reply({ content: 'No hay usuarios pendientes de desactivar.', ephemeral: true });
+                }
+                let index = 0;
+                const handleUser = async () => {
+                    if (index >= rows.length) {
+                        return interaction.followUp({ content: 'Se han procesado todos los usuarios.', ephemeral: true });
+                    }
+            
+                    const user = rows[index]; // Primero obtenemos el usuario desde la base de datos.
+            
+                    // Intentar obtener el usuario de Discord desde su ID
+                    const discordUser = await client.users.fetch(user.user_id).catch((err) => {
+                        console.error(`No se pudo obtener el usuario con ID: ${user.user_id}`, err);
+                    });
+            
+                    if (!discordUser) {
+                        // Si no se pudo obtener el usuario, pasa al siguiente
+                        console.error(`Usuario con ID ${user.user_id} no encontrado en Discord.`);
+                        index++;
+                        return handleUser();
+                    }
+            
+                    const embed = new EmbedBuilder()
+                        .setColor('#FF5733')
+                        .setTitle('¿Desactivar este usuario?')
+                        .setDescription(`👤 **Usuario:** ${discordUser.username}\n🌟 **Puntos:** ${user.points}`)
+                        .setFooter({ text: `Creado por ${interaction.user.username}` });
+            
+                    const buttonNo = new ButtonBuilder()
+                        .setCustomId('no')
+                        .setLabel('No')
+                        .setStyle(ButtonStyle.Success);
+            
+                    const buttonSi = new ButtonBuilder()
+                        .setCustomId('si')
+                        .setLabel('Sí')
+                        .setStyle(ButtonStyle.Danger);
+            
+                    const row = new ActionRowBuilder().addComponents(buttonNo, buttonSi);
+            
+                    const message = await interaction.followUp({
+                        embeds: [embed],
+                        components: [row],
+                        ephemeral: true,
+                    });
+            
+                    // Crear un filtro para que sólo el usuario que ejecutó el comando interactúe
+                    const filter = (i) => i.user.id === interaction.user.id;
+                    const collector = message.createMessageComponentCollector({ filter, time: 60000 });
+            
+                    collector.on('collect', async (btnInteraction) => {
+                        if (btnInteraction.customId === 'si') {
+                            // Actualizar la base de datos para desactivar al usuario
+                            db.run('UPDATE puntos SET desactivado = 1 WHERE user_id = ?', [user.user_id], (updateErr) => {
+                                if (updateErr) {
+                                    console.error(updateErr.message);
+                                    return btnInteraction.reply({ content: 'Hubo un error al actualizar el usuario.', ephemeral: true });
+                                }
+            
+                                btnInteraction.reply({ content: `Usuario **${discordUser.username}** desactivado correctamente.`, ephemeral: true });
+                            });
+                        } else {
+                            btnInteraction.reply({ content: `Usuario **${discordUser.username}** no desactivado.`, ephemeral: true });
+                        }
+            
+                        collector.stop(); // Detener el colector después de la interacción
+                    });
+            
+                    collector.on('end', () => {
+                        index++; // Pasar al siguiente usuario
+                        handleUser(); // Continuar con el siguiente usuario
+                    });
+                };
+            
+                handleUser(); // Iniciar con el primer usuario
+            });
+        }
+
     });
 };

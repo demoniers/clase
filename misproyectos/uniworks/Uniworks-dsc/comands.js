@@ -14,6 +14,10 @@ module.exports = async (client) => {
             description: 'Muestra cuántos puntos tienes.'
         });
         guild.commands.create({
+            name: 'comprobar_usuarios',
+            description: 'Buscara todos los usuarios del servidor y comprobara si aun estan en el.'
+        });
+        guild.commands.create({
             name: 'log-view',
             description: 'Comando para ver los log de los bonos'
         });

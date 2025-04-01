@@ -6,7 +6,7 @@ module.exports = (client, db) => {
 
         const userId = message.author.id;
 
-        db.get('SELECT points FROM puntos WHERE user_id = ?', [userId], (err, row) => {
+        db.get('SELECT points FROM puntos WHERE user_id = ? AND desactivado != 1', [userId], (err, row) => {
             if (err) {
                 console.error(err.message);
                 return;
