@@ -274,6 +274,209 @@ module.exports = (client, db) => {
                 handleUser(); // Iniciar con el primer usuario
             });
         }
+        if (commandName === 'crear_reto') {
+            await interaction.reply({ content: 'Procesando...', ephemeral: true });
+        
+            // Validar que el usuario tenga un permiso específico
+            const requiredPermission = 'EventManager'; // Cambia esto si es necesario
+        
+            if (!interaction.member.permissions.has(requiredPermission)) {
+                return interaction.reply('No tienes permiso para usar este comando.');
+            }
+            const createChannelId = "1356890716629893170";
+            if (interaction.channel.id === createChannelId) {
+                // Solicitar datos para el reto
+                const nombre = interaction.options.getString('nombre');
+                const descripcion = interaction.options.getString('descripcion') || 'Sin descripción.';
+                const recompensa = interaction.options.getInteger('recompensa');
+                const fechaInicio = interaction.options.getString('fecha_inicio');
+                const fechaFin = interaction.options.getString('fecha_fin');
+            
+                // Agregar el reto a la base de datos
+                db.run(
+                    `INSERT INTO retos (nombre, descripcion, recompensa, fecha_inicio, fecha_fin)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [nombre, descripcion, recompensa, fechaInicio, fechaFin],
+                    function (err) {
+                        if (err) {
+                            console.error(err.message);
+                            return interaction.reply({ content: 'Hubo un error al guardar el reto.', ephemeral: true });
+                        }
+            
+                        const embed = new EmbedBuilder()
+                            .setColor('#FFA500') // Naranja, color llamativo
+                            .setTitle('Nuevo Reto Semanal Creado')
+                            .setDescription(`📝 **Nombre:** ${nombre}\n\n📋 **Descripción:** ${descripcion}\n\n💰 **Recompensa:** ${recompensa} monedas\n\n📅 **Fecha de Inicio:** ${fechaInicio}\n📅 **Fecha de Fin:** ${fechaFin}`)
+                            .setFooter({ text: `Creado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
+            
+                        const canalID = '1356907093046722581';
+                        const canal = interaction.guild.channels.cache.get(canalID);
+                        canal.send({ embeds: [embed] });
+                        return interaction.followUp({
+                            content: '¡Reto creado exitosamente!',
+                            ephemeral: true
+                        });
+                    }
+                );
+            } else {
+                return interaction.followUp ({
+                    content: 'El canal no es el correcto',
+                    ephemeral: true
+                })
+            }
+        }
+        
 
+        if (commandName === 'asignar_ganador') {
+            await interaction.reply({ content: 'Procesando...', ephemeral: true });
+        
+            // Validar que el usuario tenga un permiso específico
+            const requiredPermission = 'EventManager'; // Cambia esto si es necesario
+        
+            if (!interaction.member.permissions.has(requiredPermission)) {
+                return interaction.reply('No tienes permiso para usar este comando.');
+            }
+            const createChannelId = "1356890716629893170";
+            if (interaction.channel.id === createChannelId) {
+
+                // Obtener los parámetros
+                const usuario = interaction.options.getUser('usuario');
+                if (!usuario) {
+                    return interaction.reply({ content: 'Por favor, selecciona un usuario válido.', ephemeral: true });
+                }
+                const usuarioID = usuario.id;
+                const retoID = interaction.options.getInteger('reto_id'); // ID del reto
+            
+                // Validar si el reto existe en la base de datos
+                db.get(`SELECT nombre FROM retos WHERE id = ?`, [retoID], (err, reto) => {
+                    if (err) {
+                        console.error(err.message);
+                        return interaction.reply({ content: 'Hubo un error al validar el reto.', ephemeral: true });
+                    }
+            
+                    if (!reto) {
+                        return interaction.reply({ content: 'El reto especificado no existe.', ephemeral: true });
+                    }
+            
+                    // Registrar al ganador en la base de datos
+                    const fechaGanado = new Date().toISOString(); // Fecha actual
+                    db.run(
+                        `INSERT INTO ganadores (usuario_id, reto_id, fecha_ganado)
+                         VALUES (?, ?, ?)`,
+                        [usuarioID, retoID, fechaGanado],
+                        function (err) {
+                            if (err) {
+                                console.error(err.message);
+                                return interaction.reply({ content: 'Hubo un error al asignar al ganador.', ephemeral: true });
+                            }
+                            db.get('SELECT recompensa FROM retos WHERE id = ?', [retoID], function (err, row) {
+                                if (err) {
+                                    console.error(err.message);
+                                    return interaction.reply({ content: 'Hubo un error al buscar el reto.', ephemeral: true });
+                                }
+                                if (row) {
+                                    const recompensa = row.recompensa;
+                                    db.get('SELECT points FROM puntos WHERE user_id = ?', [usuarioID], function (err, row) {
+                                        if (err) {
+                                            console.error(err.message);
+                                            return interaction.reply({ content: 'Hubo un error al buscar el usuario.', ephemeral: true });
+                                        }
+                                        if (row) {
+                                            const puntosUser = row.points;
+                                            const nuevoPuntos = puntosUser+recompensa;
+                                            db.run('UPDATE puntos SET points = ? WHERE user_id = ?', [nuevoPuntos, usuarioID], 
+                                                function (err) {
+                                                    if (err) {
+                                                        console.error(err.message);
+                                                        return interaction.reply({ content: 'Hubo un error al actualizar los puntos.', ephemeral: true });
+                                                    }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+            
+                            // Confirmar el registro del ganador
+                            const embed = new EmbedBuilder()
+                                .setColor('#FFD700') // Dorado para simbolizar un ganador
+                                .setTitle('🎉 Ganador Asignado')
+                                .setDescription(`¡Se ha asignado un ganador al reto!\n\n👤 **Usuario:** <@${usuarioID}>\n🎯 **Reto:** ${reto.nombre}\n📅 **Fecha:** ${new Date(fechaGanado).toLocaleDateString()}`)
+                                .setFooter({ text: `Asignado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
+            
+                            const canalID = '1356911041799262341';
+                            const canal = interaction.guild.channels.cache.get(canalID);
+                            canal.send({ embeds: [embed] });
+                        }
+                    );
+                });
+            } else {
+                return interaction.followUp ({
+                    content: 'El canal no es el correcto',
+                    ephemeral: true
+                })
+            }
+        }
+        if (commandName === 'listar_ganadores') {
+            await interaction.reply({ content: 'Procesando...', ephemeral: true });
+        
+            // Validar que el usuario tenga un permiso específico
+            const requiredPermission = 'EventManager'; // Cambia esto si es necesario
+        
+            if (!interaction.member.permissions.has(requiredPermission)) {
+                return interaction.reply('No tienes permiso para usar este comando.');
+            }
+            const winnerChannelId = "1356911041799262341";
+            if (interaction.channel.id === winnerChannelId) {
+                const retoID = interaction.options.getInteger('reto_id'); // ID del reto
+
+                // Consultar la base de datos para obtener los ganadores
+                db.all(
+                    `SELECT ganadores.usuario_id, ganadores.fecha_ganado, retos.nombre AS reto_nombre
+                    FROM ganadores
+                    INNER JOIN retos ON ganadores.reto_id = retos.id
+                    WHERE retos.id = ?
+                    ORDER BY ganadores.fecha_ganado DESC`, [retoID],
+                    async (err, rows) => {
+                        if (err) {
+                            console.error(err.message);
+                            return interaction.reply({ content: 'Hubo un error al obtener los datos de los ganadores.', ephemeral: true });
+                        }
+
+                        if (rows.length === 0) {
+                            return interaction.followUp({ content: 'No hay ganadores registrados.', ephemeral: true });
+                        }
+                        let mensaje = '**🏆 Ganadores de Retos 🏆**\n\n';
+
+                        for (const row of rows) {
+                            try {
+                                const usuario = await client.users.fetch(row.usuario_id);
+                                const mencionUser = usuario.toString(); // Genera la mención @Usuario
+                        
+                                // Añadir al mensaje
+                                mensaje += `👤 **Usuario:** ${mencionUser}\n`;
+                                mensaje += `🌟 **Reto:** ${row.reto_nombre}\n`;
+                                mensaje += `📅 **Fecha:** ${new Date(row.fecha_ganado).toLocaleDateString()}\n\n`;
+                            } catch (error) {
+                                console.error(`Error al obtener el usuario con ID ${row.usuario_id}:`, error);
+                        
+                                // Añadir un mensaje de error al texto
+                                mensaje += `👤 **Usuario:** ID no válido\n`;
+                                mensaje += `🌟 **Reto:** ${row.reto_nombre}\n`;
+                                mensaje += `📅 **Fecha:** ${new Date(row.fecha_ganado).toLocaleDateString()}\n\n`;
+                            }
+                        }
+                        
+                        // Enviar el mensaje al canal donde se ejecutó el comando
+                        interaction.channel.send(mensaje);
+                    }
+                );
+            } else {
+                return interaction.followUp ({
+                    content: 'El canal no es el correcto',
+                    ephemeral: true
+                })
+            }
+        }
+        
     });
 };

@@ -1,4 +1,4 @@
-// 5 hora 20 min ### 
+// 7 hora 55 min ### 
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose();

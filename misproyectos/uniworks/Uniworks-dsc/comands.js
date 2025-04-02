@@ -12,6 +12,10 @@ module.exports = async (client) => {
         guild.commands.create({
             name: 'puntos',
             description: 'Muestra cuántos puntos tienes.'
+        });        
+        guild.commands.create({
+            name: 'ranking',
+            description: 'Muestra el Ranking de puntos.'
         });
         guild.commands.create({
             name: 'comprobar_usuarios',
@@ -57,7 +61,76 @@ module.exports = async (client) => {
                 }
             ]
         });
-    
+
+        // RETOS
+        
+        guild.commands.create({
+            name: 'crear_reto',
+            description: 'Crea un reto semanal',
+            options: [
+                {
+                    name: 'nombre',
+                    type: 3, // STRING
+                    description: 'Nombre del reto',
+                    required: true,
+                },
+                {
+                    name: 'recompensa',
+                    type: 4, // INTEGER
+                    description: 'Recompensa por el reto',
+                    required: true,
+                },
+                {
+                    name: 'fecha_inicio',
+                    type: 3, // STRING
+                    description: 'Fecha de inicio (YYYY-MM-DD)',
+                    required: true,
+                },
+                {
+                    name: 'fecha_fin',
+                    type: 3, // STRING
+                    description: 'Fecha de fin (YYYY-MM-DD)',
+                    required: true,
+                },
+                {
+                    name: 'descripcion',
+                    type: 3, // STRING
+                    description: 'Descripción del reto',
+                    required: false,
+                },
+            ],
+        });
+        guild.commands.create({
+            name: 'listar_ganadores',
+            description: 'Muestra una lista de los ganadores de los retos',
+            options: [
+                {
+                    name: 'reto_id',
+                    type: 4, // INTEGER
+                    description: 'ID del reto',
+                    required: true,
+                },
+            ],
+        });
+        guild.commands.create({
+            name: 'asignar_ganador',
+            description: 'Asigna un ganador a un evento o reto específico',
+            options: [
+                {
+                    name: 'usuario',
+                    type: 6, // @USER
+                    description: 'ID del usuario ganador',
+                    required: true,
+                },
+                {
+                    name: 'reto_id',
+                    type: 4, // INTEGER
+                    description: 'ID del reto',
+                    required: true,
+                },
+            ],
+        });
+        
         console.log('Comandos registrados.');
     });
 }
