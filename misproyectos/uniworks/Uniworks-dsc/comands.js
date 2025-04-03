@@ -17,15 +17,15 @@ module.exports = async (client) => {
             name: 'ranking',
             description: 'Muestra el Ranking de puntos.'
         });
-        guild.commands.create({
+        guild.commands.create({// COMPROBAR
             name: 'comprobar_usuarios',
             description: 'Buscara todos los usuarios del servidor y comprobara si aun estan en el.'
         });
-        guild.commands.create({
+        guild.commands.create({// LOG´s BONUS
             name: 'log-view',
             description: 'Comando para ver los log de los bonos'
         });
-        guild.commands.create({
+        guild.commands.create({// BONUS ADD
             name: 'bonusadd',
             description: 'Añade un bono de puntos al usuario.',
             options: [
@@ -43,7 +43,7 @@ module.exports = async (client) => {
                 }
             ]
         });
-        guild.commands.create({
+        guild.commands.create({// DROP
             name: 'drop',
             description: 'Registra una acción con una descripción y un número de puntos.',
             options: [
@@ -61,10 +61,9 @@ module.exports = async (client) => {
                 }
             ]
         });
-
-        // RETOS
         
-        guild.commands.create({
+        // RETOS
+        guild.commands.create({// CREAR RETO
             name: 'crear_reto',
             description: 'Crea un reto semanal',
             options: [
@@ -100,7 +99,7 @@ module.exports = async (client) => {
                 },
             ],
         });
-        guild.commands.create({
+        guild.commands.create({// LISTADO GANADORES
             name: 'listar_ganadores',
             description: 'Muestra una lista de los ganadores de los retos',
             options: [
@@ -112,7 +111,7 @@ module.exports = async (client) => {
                 },
             ],
         });
-        guild.commands.create({
+        guild.commands.create({// ASIGNAR GANADORES
             name: 'asignar_ganador',
             description: 'Asigna un ganador a un evento o reto específico',
             options: [

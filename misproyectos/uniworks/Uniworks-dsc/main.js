@@ -1,4 +1,4 @@
-// 7 hora 55 min ### 
+// 11 hora 00 min ### 
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose();
@@ -10,9 +10,11 @@ const comands = require('./comands.js');
 
 const client = new Client({
     intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent // Asegúrate de que este intent sea habilitado
+        GatewayIntentBits.Guilds, // Necesario para escuchar eventos en servidores
+        GatewayIntentBits.GuildMembers, // Necesario para acceder a miembros del servidor
+        GatewayIntentBits.GuildMessages, // Necesario para escuchar mensajes en canales
+        GatewayIntentBits.MessageContent, // Necesario para leer el contenido de los mensajes
+        GatewayIntentBits.GuildMessageReactions, // Opcional para manejar reacciones
     ],
 });
 
