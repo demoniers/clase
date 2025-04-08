@@ -1,0 +1,21 @@
+        /* Estilo que aplica al cuerpo de la página */
+        body {
+            background-color: #ae58bb;
+            background-image: url(../img/fondo.jpg);
+            color: white;
+        }
+        .content {
+            width: 40%;
+        }
+        #historia {
+            float: left;
+        }
+        #paraempezar {
+            float: right;
+        }
+        .content img {
+            float: right;
+        }
+
+ 
+        

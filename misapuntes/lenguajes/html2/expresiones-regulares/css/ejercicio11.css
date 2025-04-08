@@ -1,0 +1,13 @@
+input {
+    background-color: yellow;
+}
+
+input:required {
+    background-color: lightgreen;
+}
+
+input {
+    display: block;
+    width: 25em;
+    margin: 1em;
+}

@@ -1,0 +1,1 @@
+const titulo = document.querySelectorAll('h3')

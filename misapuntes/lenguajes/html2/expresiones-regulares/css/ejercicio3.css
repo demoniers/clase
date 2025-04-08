@@ -1,0 +1,43 @@
+table {
+    border: 3px solid gold;
+    margin: 50px auto;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th {
+    background-color: rgb(211, 146, 211);
+    border: 3px solid gold;
+    padding: 5px;
+    width: 25%;
+}
+
+td {
+    border: 3px solid gold;
+    padding: 5px;
+}
+
+.alinearIzq {
+    text-align: left;
+}
+
+tfoot {
+    background-color: khaki;
+}
+
+caption {
+    color: red;
+}
+
+#colgroup1 {
+    background-color: lightskyblue;
+}
+
+#colgroup2 {
+    background-color: antiquewhite;
+}
+
+#colgroup3 {
+    background-color: orange;
+}

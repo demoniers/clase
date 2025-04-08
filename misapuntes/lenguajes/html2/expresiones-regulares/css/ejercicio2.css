@@ -1,0 +1,25 @@
+table {
+    border: 2px double darkblue;
+    margin: 50px auto;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th {
+    color: blue;
+    background-color: yellow;
+    border: 1px solid darkblue;
+    padding: 5px;
+    width: 25%;
+}
+
+td {
+    color: green;
+    border: 1px solid darkblue;
+    padding: 5px;
+}
+
+.alinearIzq {
+    text-align: left;
+}

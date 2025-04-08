@@ -1,0 +1,33 @@
+h1 {
+    text-align: center;
+    color: blueviolet;
+}
+
+#video1 {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+#queen {
+    width: 500px;
+    height: 250px;
+}
+
+#video2 {
+    float: right;
+    width: 50%;
+}
+
+.noFlotante {
+    clear: both;
+    width: 80%;
+    margin: auto;
+    height: 500px;
+}
+
+.pdf {
+    margin-top: 25px;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,22 @@
+body {
+    color: white;
+    background-color: black;
+}
+.center {
+    text-align: center;
+}
+#container {
+    border: 1px solid white;
+    padding: 1%;
+    margin: 1px;
+    height: 9s0%;
+    width: 90%;
+}
+.c65, p {
+    float: left;
+    width: 65%;
+}
+.c25, p{
+    float: right;
+    width: 25%;
+}

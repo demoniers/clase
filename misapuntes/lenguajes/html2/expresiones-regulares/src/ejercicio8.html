@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 8</title>
+    <link rel="stylesheet" href="../css/ejercicio8.css">
+</head>
+<body>
+    <h1>FORMULARIO HTML5</h1>
+    <form action="#">
+        <fieldset>
+            <legend>Datos</legend>
+            <label for="email">Mail</label>
+            <input type="email" name="email" id="email" placeholder="nombre@gmail.com"> <br>
+            <label for="web">Web</label>
+            <input type="url" name="url" id="url" placeholder="www.pagina.com"> <br>
+            <label for="numLicencias">Número de licencias</label>
+            <input type="number" name="numLicencias" id="numLicencias" placeholder="1-10"> <br>
+        </fieldset>
+        <fieldset>
+            <legend>Detalle Tarjeta</legend>
+            <label for="numTarjeta">Número Tarjeta</label>
+            <input type="text" name="numTarjeta" id="numTarjeta"> <br>
+            <label for="cvv">CVV</label>
+            <input type="number" name="cvv" id="cvv" placeholder="3 dígitos"> <br>
+            <label for="fechaCad">Fecha Caducidad</label>
+            <input type="month" name="fechaCad" id="fechaCad" value="2020-12"> <br>
+        </fieldset>
+        <button type="submit">Enviar</button>
+        <button type="reset">Borrar</button>
+    </form>
+</body>
+</html>

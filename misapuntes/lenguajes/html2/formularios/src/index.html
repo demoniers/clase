@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../img/">
+    <title>Hojas de Estilo</title>
+    <link rel="icon" type="image/x-icon" href="../img/icon.ico">
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="author" content="Diego" />
+    <meta name="description" content="Esto es una web" />
+    <!---meta http-equiv="refresh" content="60; URL=http://www.google.com/" /> -->
+  </head>
+
+  <body>
+    <div id="container">
+      <h1>Datos personales</h1>
+      <form action="#">
+        <label for="user">Nombre de usuario</label>
+        <input type="text" name="user" id="user" placeholder="Name"><br>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" name="password" id="password"><br>
+        <label for="sexo">Genero:</label>
+        <input type="radio" name="sex" id="sex" value="Señor">Señor
+        <input type="radio" name="sex" id="sex" value="Señora">Señora<br>
+        <label for="phone">Telefono:</label>
+        <input type="tel" name="phone" id="phone" placeholder="999 99 99 99"><br>
+        <label for="img">Foto de perfil:</label><br>
+        <input type="file" name="img" id="img" accept="image/jpeg"><br>
+        <label for="asignatura">Asignaturas</label><br>
+        <input type="checkbox" name="asig1" id="asig1" value="1">1
+        <input type="checkbox" name="asig2" id="asig2" value="2" checked>2
+        <input type="checkbox" name="asig3" id="asig3" value="3">3
+        <br><br> 
+        <input type="reset" name="cancel" id="cancel" value="cancelar">
+        <input type="submit" name="enviar" id="enviar" value="Enviar">
+      </form>
+    </div>
+    <p id="fh"></p>
+  </body>
+  <script>
+    fecha = document.getElementById("fh");
+    f = new Date();
+    fecha.innerHTML = f;
+</script>
+</html>

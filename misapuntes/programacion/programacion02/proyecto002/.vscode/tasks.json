@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "javac",
+            "args": [
+                "-d",
+                "bin",
+                "-sourcepath",
+                "src",
+                "src/Main.java",
+                "src/view/IMainView.java",
+                "src/view/MainTerminalView.java",
+                "src/utils/TerminalUtils.java",
+                "src/model/IModel.java",
+                "src/controller/MainController.java"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$javac"],
+            "detail": "Compiles Java sources"
+        }
+    ]
+}

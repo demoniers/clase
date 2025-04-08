@@ -1,0 +1,21 @@
+h1 {
+    width: 75%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+form {
+    width: 30%;
+    margin: auto;
+}
+
+input,button {
+    margin-bottom: 2%;
+}
+
+.labelCajas {
+    display: inline-block;
+    width: 5em;
+    margin: 1% 2%;
+}

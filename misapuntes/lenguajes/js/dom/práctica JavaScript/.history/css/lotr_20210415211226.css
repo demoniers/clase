@@ -1,0 +1,66 @@
+body {
+  background-color: hsl(54, 100%, 75%);
+  font-family: sans-serif;
+}
+
+h1 {
+  margin: 0;
+  background-color: beige;
+  text-align: center;
+}
+h2 {
+  margin: 0;
+  background-color: hsl(43, 100%, 60%);
+}
+h3 {
+  margin: 0;
+  padding-left: 5px;
+  background-color: hsl(28, 100%, 50%);
+  color: white;
+}
+
+.principal {
+  display: block;
+  padding-top: 25px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: white;
+}
+
+.seccion {
+  border: black 5px solid;
+  margin: 5px;
+  background-color:rebeccapurple;
+  overflow: hidden;
+}
+
+.articuloIzq {
+  border:gold 3px solid;
+  background-color: khaki;
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding: 15px;
+}
+.articuloDer {
+  border:gold 3px solid;
+  background-color: khaki;
+  box-sizing: border-box;
+  float: right;
+  width: 50%;
+  padding: 15px;
+}
+
+#divTabla {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  box-sizing: border-box;
+  border: 2px red solid;
+}
+
+th, td {
+  border: 1px green solid;
+  padding: 10px;
+  text-align: center;
+}

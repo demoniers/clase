@@ -1,0 +1,45 @@
+body {
+    background-color: #f4f4f4;
+}
+.center {
+    text-align: center;
+}
+#container {
+    border: 1px solid white;
+    padding: 1%;
+    margin: 1px;
+    height: 9s0%;
+    width: 90%;
+}
+.c65{
+    float: left;
+    width: 65%;
+    border: 1px solid white;
+}
+.c25{
+    float: right;
+    width: 25%;
+    border: 1px solid white;
+    background-color: #D32F2F;
+    color: #228B22;
+}
+div {
+    margin: 1%;
+}
+a, h1 {
+    color: #FFEB3B;
+}
+.cc {
+    clear: both;
+    border: 1px solid white;
+    background-color: #D32F2F;
+    color: #228B22;
+}
+dl {
+    margin-left: 5%;
+}
+.cimg {
+    margin-left: 45%;
+    margin-right: 38%;
+    border: 1px double white;
+}

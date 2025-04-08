@@ -1,0 +1,17 @@
+body {
+    color: white;
+    background-color: black;
+}
+.center {
+    text-align: center;
+}
+.container {
+    border: 1px solid white;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin: 1px;
+}
+.c65 {
+    float: right;
+    width: 65%;
+}
