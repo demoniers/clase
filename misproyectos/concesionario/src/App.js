@@ -12,6 +12,7 @@ import VerAlquiler from './routes/Admin/verAlquiler';
 import RentalPanel from './routes/Customer/RentalPanel';
 import Profile from './routes/Customer/ProfilePanel';
 import MyRents from './routes/Customer/myRents';
+import EditarCoches from './routes/Admin/modifypanel';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/admin/vhpanel" element={<VhAdminPanel />} />
       <Route path="/admin/gestionCliente" element={<GestionClientes />} />
       <Route path="/admin/verAlquiler" element={<VerAlquiler />} />
+      <Route path="/admin/EditarCoches" element={<EditarCoches />} />
       <Route path="/rentalPanel" element={<RentalPanel />} />
       <Route path="/profilePanel" element={<Profile />} />
       <Route path="/myrents" element={<MyRents />} />

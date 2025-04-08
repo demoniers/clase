@@ -1,0 +1,269 @@
+/* Estructura principal */
+.main-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+.sidebar {
+  width: 250px;
+  background: #292929;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e2b007;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  color: #e2b007;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.menu button {
+  width: 100%;
+  background-color: #e2b007;
+  color: #1e1e1e;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.menu button:hover {
+  background-color: #f2c417;
+  transform: scale(1.05);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panel-header h1 {
+  font-size: 2.5rem;
+  color: #e2b007;
+  text-transform: uppercase;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
+}
+
+/* Panel de detalles con tres coches por fila */
+.panel-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres coches por fila */
+  gap: 20px; /* Espaciado entre los coches */
+  padding: 20px;
+  background: rgba(31, 31, 31, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  width: 100%;
+}
+
+.car-card {
+  background: #292929;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  color: #ffffff;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.car-card:hover {
+  transform: scale(1.05);
+  background-color: #333333;
+}
+
+.car-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.action-btn {
+  padding: 8px 12px;
+  background-color: #e2b007;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #f2c417;
+  transform: scale(1.05);
+}
+
+/* Modal */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.8);
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #292929;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  font-size: 1.8rem;
+  color: #e2b007;
+  margin-bottom: 15px;
+}
+
+.edit-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.edit-table tr:nth-child(odd) {
+  background-color: #1e1e1e;
+}
+
+.edit-table tr:nth-child(even) {
+  background-color: #292929;
+}
+
+.edit-table td {
+  padding: 10px;
+  border: 1px solid #444;
+  text-align: left;
+}
+
+.edit-table td:first-child {
+  font-weight: bold;
+  color: #e2b007;
+}
+
+.edit-table input[type="text"],
+.edit-table input[type="number"] {
+  width: 90%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.edit-table input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-left: 10px;
+}
+
+/* Botones en el modal */
+.modal-save-btn,
+.modal-close-btn {
+  margin: 15px 10px 0;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #1e1e1e;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.modal-save-btn {
+  background-color: #4caf50;
+}
+
+.modal-save-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.modal-close-btn {
+  background-color: #e2b007;
+}
+
+.modal-close-btn:hover {
+  background-color: #ff4d4d;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Botón de cerrar */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  color: #cccccc;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ffffff;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .content {
+    padding: 20px;
+  }
+
+  .panel-details {
+    grid-template-columns: 1fr; /* Un coche por fila en pantallas pequeñas */
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .modal-save-btn,
+  .modal-close-btn {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .edit-table td {
+    padding: 8px;
+  }
+}

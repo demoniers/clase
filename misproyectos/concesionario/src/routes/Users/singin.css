@@ -1,58 +1,119 @@
-/* Estilo del contenedor */
+/* Estilo global */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Contenedor principal */
 .singin-container {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    background: #1f1f1f;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-    color: white;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Título del formulario */
-  .singin-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #e2b007;
-  }
-  
-  /* Estilo del formulario */
-  .singin-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .singin-form label {
-    margin-bottom: 10px;
-    font-size: 1rem;
-  }
-  
-  .singin-form input,
-  .singin-form select,
-  .singin-form button {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-  }
-  
-  .singin-form input,
-  .singin-form select {
-    background: #333;
-    color: white;
-  }
-  
-  .singin-form button {
-    background: #e2b007;
-    color: black;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .singin-form button:hover {
-    background: #d49f07;
-  }
-  
+}
+
+/* Fondo semi-transparente encima del carrusel */
+.singin-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Título del formulario */
+.singin-container h2 {
+  z-index: 3;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffc700;
+  margin-bottom: 30px;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo del formulario */
+.singin-form {
+  color: white;
+  background-color: #333333a0;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  z-index: 3;
+  margin: auto;
+  padding: 20px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.singin-form label {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.singin-form input,
+.singin-form select,
+.singin-form button {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+
+.singin-form input,
+.singin-form select, 
+.singin-form select option  {
+  background: rgba(51, 51, 51, 0.02);
+  color: white;
+}
+
+.singin-form input:focus {
+  outline: none;
+  border: 2px solid #e2b007;
+}
+
+.singin-form button {
+  background: #e2b007;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.singin-form button:hover {
+  background: #d49f07;
+  transform: scale(1.05);
+}
+
+.singin-form button:active {
+  transform: scale(0.95);
+}
+
+/* Carrusel */
+.carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-image.active {
+  opacity: 1;
+}

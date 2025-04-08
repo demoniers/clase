@@ -203,7 +203,62 @@ app.post('/api/coches/Aniade', (req, res) => {
     res.status(400).json({ error: 'El formato del encabezado Contenidos no es válido.' });
   }
 });
+app.get('/api/modifycoches/:id', (req, res) => {
+  const { id } = req.params;
+  const {
+    nombre_coche,
+    velocidad_punta,
+    aceleracion,
+    consumo,
+    newtons_par,
+    caballos,
+    numero_marchas,
+    automatico,
+    tiene_levas,
+    precio_por_dia,
+  } = req.query;
 
+  // Validar los datos requeridos
+  if (!nombre_coche || !velocidad_punta) {
+    return res.status(400).json({ error: 'Datos incompletos: se requiere nombre y velocidad_punta.' });
+  }
+
+  // Consulta SQL para actualizar los datos
+  const query = `
+    UPDATE coches
+    SET nombre_coche = ?, velocidad_punta = ?, aceleracion = ?, consumo = ?, 
+        newtons_par = ?, caballos = ?, numero_marchas = ?, automatico = ?, tiene_levas = ?, precio_por_dia = ?
+    WHERE id = ?
+  `;
+
+  const values = [
+    nombre_coche,
+    velocidad_punta,
+    aceleracion,
+    consumo,
+    newtons_par,
+    caballos,
+    numero_marchas,
+    automatico === 'true' ? 1 : 0, // Convertir cadena a entero
+    tiene_levas === 'true' ? 1 : 0, // Convertir cadena a entero
+    precio_por_dia,
+    id,
+  ];
+
+  db.run(query, values, function (err) {
+    if (err) {
+      console.error('Error al actualizar el vehículo:', err.message);
+      return res.status(500).json({ error: 'Error al actualizar los datos en la base de datos.' });
+    }
+
+    // Si no se encontró el coche para actualizar
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'No se encontró un coche con el ID proporcionado.' });
+    }
+
+    res.status(200).json({ message: 'Coche actualizado correctamente.' });
+  });
+});
 
 // GESTION USUARIOS #################################
 

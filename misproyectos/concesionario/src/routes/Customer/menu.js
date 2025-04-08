@@ -8,7 +8,7 @@ function Menu() {
         <button onClick={() => navigate('/')}>Inicio</button>
         <button onClick={() => navigate('/profilePanel')}>Mis Datos</button>
         <button onClick={() => navigate('/rentalPanel')}>Alquilar</button>
-        <button onClick={() => navigate('/rentals')}>Mis Alquileres</button>
+        <button onClick={() => navigate('/myrents')}>Mis Alquileres</button>
         <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
     </nav>
   );

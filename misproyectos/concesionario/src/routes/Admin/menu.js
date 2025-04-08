@@ -10,6 +10,7 @@ function Menu() {
       <button onClick={() => navigate('/admin/gestionCliente')}>Gestionar Clientes</button>
       <button onClick={() => navigate('/admin/verAlquiler')}>Gestionar Alquileres</button>
       <button onClick={() => navigate('/admin/vhpanel')}>Crear Vehículo</button>
+      <button onClick={() => navigate('/admin/EditarCoches')}>Modificar Vehículo</button>
       <button onClick={() => navigate('/concesionario')}>Concesionario</button>
       <button onClick={() => navigate('/')}>Inicio</button>
       <button onClick={() => navigate('/logout')}>Cerrar Sesión</button>
